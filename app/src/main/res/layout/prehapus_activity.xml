@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#272727">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="8dp"
+            >
+
+            <Button
+                android:layout_marginLeft="32dp"
+                android:background="@drawable/goto_hapusmurid_btn"
+                android:drawableTop="@drawable/ic_baseline_person_remove_24"
+                android:id="@+id/goto_hapusmurid"
+                android:text="HAPUS\nMURID"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp">
+
+            <Button
+                android:layout_marginRight="32dp"
+                android:background="@drawable/goto_hapustugas_btn"
+                android:drawableTop="@drawable/ic_baseline_task_remove_24"
+                android:id="@+id/goto_hapustugas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HAPUS\nTUGAS"
+                android:clickable="false"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

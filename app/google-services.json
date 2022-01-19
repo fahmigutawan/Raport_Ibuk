@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "873257869120",
+    "project_id": "raport-ibuk-revisi",
+    "storage_bucket": "raport-ibuk-revisi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873257869120:android:a943fbb2ede98f4199e4a5",
+        "android_client_info": {
+          "package_name": "com.example.raportibukrevisi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873257869120-k1acggmfub3pcmq2djepj40v275ismnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3Jc7qPV5hIg7fnXbulUGE5zpmcgn-2QE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873257869120-k1acggmfub3pcmq2djepj40v275ismnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

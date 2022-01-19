@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#272727">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:text="APLIKASI RAPORT"
+        android:textColor="@color/white"
+        android:textSize="42dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnTambahMurid"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/button_custom"
+            android:drawableRight="@drawable/ic_baseline_group_add_24"
+            android:fontFamily="sans-serif-black"
+            android:text="TAMBAH MURID"
+            app:iconTint="#FF0000"
+            android:textSize="13dp"/>
+
+        <Button
+            android:id="@+id/btnTambahNilai"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/button_custom"
+            android:drawableRight="@drawable/ic_baseline_post_add_24"
+            android:fontFamily="sans-serif-black"
+            android:text="TAMBAH NILAI"
+            android:textSize="13dp"/>
+
+        <Button
+            android:id="@+id/btnLihatMurid"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/button_custom"
+            android:drawableRight="@drawable/ic_baseline_search_24"
+            android:fontFamily="sans-serif-black"
+            android:text="LIHAT MURID"
+            android:textSize="13dp"/>
+
+        <Button
+            android:id="@+id/btnHapusMurid"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:background="@drawable/button_custom"
+            android:drawableRight="@drawable/ic_baseline_delete_24"
+            android:fontFamily="sans-serif-black"
+            android:text="HAPUS DATA"
+            android:textSize="13dp"/>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/setting_button"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="31dp"
+        android:backgroundTint="@color/green_floatingbutton"
+        android:backgroundTintMode="src_in"
+        android:src="@drawable/ic_baseline_settings_24"
+        android:tint="#FF0000"
+        app:backgroundTint="#00000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/export_button"
+        app:rippleColor="#000000" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/export_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/green_floatingbutton"
+        android:backgroundTintMode="src_in"
+        android:src="@drawable/ic_baseline_download_24"
+        android:tint="#FF0000"
+        app:backgroundTint="#00000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="#000000"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
