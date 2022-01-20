@@ -26,10 +26,9 @@
         <activity android:name=".TambahNilai"/>
         <activity android:name=".TambahMurid"/>
         <activity android:name=".LihatData"/>
-        <activity android:name=".PreHapus"/>
         <activity android:name=".HapusMurid"/>
-        <activity android:name=".HapusTugas"/>
         <activity android:name=".SettingKalimat"/>
+        <activity android:name=".ExportActivity"/>
     </application>
 
 </manifest>

@@ -24,15 +24,13 @@ class LihatData:AppCompatActivity() {
     private var allTugasSelected:String=""//biar kosong karena akan ditambah tanda "-" saat pertama kali diisi
 
     //list dan adapter preview
-    private lateinit var tahunList:ArrayList<String>
     private lateinit var tahunAdapter: ArrayAdapter<String>
-    private lateinit var kelasList:ArrayList<String>
     private lateinit var kelasAdapter: ArrayAdapter<String>
-    private lateinit var namaList:ArrayList<String>
     private lateinit var namaAdapter: ArrayAdapter<String>
 
     //reference
-    private lateinit var dbRefMain: DatabaseReference
+    private var listRequired = ListRequired()
+    private var dbRef = DbReference()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,11 +120,6 @@ class LihatData:AppCompatActivity() {
         kelas_scroll = findViewById(R.id.kelas_scroll)
         nomorinduk_scroll = findViewById(R.id.nomorinduk_scroll)
         tugas_scroll = findViewById(R.id.namatugas_scroll)
-
-        dbRefMain = FirebaseDatabase.getInstance().getReference("DB")
-        tahunList=ArrayList()
-        kelasList=ArrayList()
-        namaList= ArrayList()
     }
 
     //fungsi khusus
@@ -148,61 +141,21 @@ class LihatData:AppCompatActivity() {
 
     //setter
     fun setTahunPreview(){
-        dbRefMain.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for(item: DataSnapshot in snapshot.getChildren()){
-                    tahunList.add(item.child("tahun").getValue().toString().replace("_","-"))
-                }
-                dbRefMain.removeEventListener(this)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
         tahunAdapter = ArrayAdapter(this,
-            R.layout.support_simple_spinner_dropdown_item, tahunList)
+            R.layout.support_simple_spinner_dropdown_item, listRequired.listTahun())
         tahun_lihatdata_dropdown.setAdapter(tahunAdapter)
     }
     fun setKelasPreview(){
-        kelasList.add("A")
-        kelasList.add("B")
-
         kelasAdapter = ArrayAdapter(this,
-            R.layout.support_simple_spinner_dropdown_item, kelasList)
+            R.layout.support_simple_spinner_dropdown_item, listRequired.listKelas())
         kelas_lihatdata_dropdown.setAdapter(kelasAdapter)
     }
     fun setNamaDropdown(){
-        namaList.clear()
-        if(tahunSelected=="_" || kelasSelected=="_"){
-            nama_lihatdata_dropdown.setText("pilih nama")
-        }else{
-            nama_lihatdata_dropdown.setText("pilih nama")
-
-            dbRefMain.child(tahunSelected)
-                .child(kelasSelected).addValueEventListener(object: ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        for (item: DataSnapshot in snapshot.getChildren()){
-                            var tmp = item.child("nama").getValue().toString()
-                            if (tmp!="null"){
-                                namaList.add(item.child("nama").getValue().toString())
-                            }
-                        }
-                        dbRefMain.child(tahunSelected)
-                            .child(kelasSelected).removeEventListener(this)
-                    }
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-
-                })
-
             namaAdapter = ArrayAdapter(this,
-                R.layout.support_simple_spinner_dropdown_item,namaList)
+                R.layout.support_simple_spinner_dropdown_item,listRequired.listNama(getTahunSelected(),getKelasSelected()))
             nama_lihatdata_dropdown.setAdapter(namaAdapter)
         }
-    }
+
     fun setTahunSelected(tahun:String){
         tahunSelected=tahun
     }
@@ -213,24 +166,21 @@ class LihatData:AppCompatActivity() {
         namaSelected=nama
     }
     fun setAllTugasSelected(){
-        dbRefMain.child(getTahunSelected())
-            .child(getKelasSelected())
-            .child(getNamaSelected())
-            .child("tugas").addValueEventListener(object : ValueEventListener {
+
+        val ref = dbRef.refMain().child(getTahunSelected()).child(getKelasSelected()).child(getNamaSelected()).child("tugas")
+
+        ref.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     allTugasSelected=""
                     for(item: DataSnapshot in snapshot.getChildren()){
-                        var tmp_namatugas = item.child("nama tugas").getValue().toString().replace("_",". ")
+                        var tmp_namatugas = item.child("nama bidang").getValue().toString().replace("_",". ")
                         var tmp_nilai = item.child("nilai").getValue().toString()
 
                         allTugasSelected=allTugasSelected+tmp_namatugas+"\n"
                         allTugasSelected=allTugasSelected+"\t\tNILAI : "+tmp_nilai+"\n\n"
                     }
 
-                    dbRefMain.child(getTahunSelected())
-                        .child(getKelasSelected())
-                        .child(getNamaSelected())
-                        .child("tugas").removeEventListener(this)
+                    ref.removeEventListener(this)
                 }
                 override fun onCancelled(error: DatabaseError) {
                     TODO("Not yet implemented")
@@ -239,17 +189,13 @@ class LihatData:AppCompatActivity() {
             })
     }
     fun setNomorIndukSelected(){
-        dbRefMain
-            .child(tahunSelected)
-            .child(kelasSelected)
-            .child(namaSelected).addValueEventListener(object: ValueEventListener {
+        val ref =dbRef.refMain().child(getTahunSelected()).child(getKelasSelected()).child(getNamaSelected())
+
+        ref.addValueEventListener(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     nomorIndukSelected=snapshot.child("nomor induk").getValue().toString()
 
-                    dbRefMain
-                        .child(tahunSelected)
-                        .child(kelasSelected)
-                        .child(namaSelected).removeEventListener(this)
+                    ref.removeEventListener(this)
                 }
                 override fun onCancelled(error: DatabaseError) {
                     TODO("Not yet implemented")

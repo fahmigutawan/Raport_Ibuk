@@ -17,16 +17,7 @@ class ExportDocument {
     private lateinit var document:XWPFDocument
     private lateinit var outputDestination:FileOutputStream
 
-    //kalimat
-    private var kalimatAgamaMoral="_"
-    private var kalimatFisikMotorik="_"
-    private var kalimatKognitif="_"
-    private var kalimatBahasa="_"
-    private var kalimatSosialEmosi="_"
-    private var kalimatSeni="_"
-    private var kalimatCatatanGuru="_"
-
-    fun export(tahun:String,kelas:String,nama:String,nomorinduk:String,tanggal:String,kepsek:String) {
+    fun export(tahun:String,kelas:String,nama:String,nomorinduk:String,tanggal:String,kepsek:String,nilai:ArrayList<String>,semester:String) {
         val parentfolder = File(Environment.getExternalStorageDirectory(), "Raport")
         if (!parentfolder.isDirectory) {
             parentfolder.mkdirs()
@@ -36,17 +27,6 @@ class ExportDocument {
             path.mkdirs()
         }
 
-        //deklarasi item yang dibutuhkan
-        while(kalimatAgamaMoral=="_"){
-        setKalimatAgamaMoral(tahun, kelas, nama)
-        }
-//        setKalimatFisikMotorik(tahun, kelas, nama)
-//        setKalimatKognitif(tahun, kelas, nama)
-//        setKalimatBahasa(tahun, kelas, nama)
-//        setKalimatSosialEmosi(tahun, kelas, nama)
-//        setKalimatSeni(tahun, kelas, nama)
-//        setKalimatCatatanGuru(tahun, kelas, nama)
-
         //proses export satu halaman
         setDocument()
         setOutputDestination(path, nama, tahun, kelas)
@@ -55,71 +35,99 @@ class ExportDocument {
         viewTabel1Identitas(nama, nomorinduk)
 
         addVerticalSpace(3)
-        viewTabel2Title()
+        viewTabel2Title(semester)
 
         addVerticalSpace(1)
         viewTabelTitleNilai("(NAM) Nilai Agama dan Moral", "A")
         addVerticalSpace(1)
-        viewTabelNilai("(NAM) Nilai Agama dan Moral", getKalimatAgamaMoral())
+        viewTabelNilai("(NAM) Nilai Agama dan Moral", loadKalimat("1",kelas, nilai.get(0)))
 
-//        while(getKalimatFisikMotorik()=="_") {
-//            addVerticalSpace(1)
-//            viewTabelTitleNilai("(FM) Fisik Motorik", "B")
-//            addVerticalSpace(1)
-//            viewTabelNilai("(FM) Fisik Motorik", getKalimatFisikMotorik())
-//        }
-//        while(getKalimatKognitif()=="_") {
-//            addVerticalSpace(1)
-//            viewTabelTitleNilai("(KOG) Kognitif", "C")
-//            addVerticalSpace(1)
-//            viewTabelNilai("(KOG) Kognitif", getKalimatKognitif())
-//        }
-//        while(getKalimatBahasa()=="_") {
-//            addVerticalSpace(1)
-//            viewTabelTitleNilai("(Bahasa) BAHASA", "D")
-//            addVerticalSpace(1)
-//            viewTabelNilai("(Bahasa) BAHASA", getKalimatBahasa())
-//        }
-//        while (getKalimatSosialEmosi()=="_") {
-//            addVerticalSpace(1)
-//            viewTabelTitleNilai("Sosial Emosional", "E")
-//            addVerticalSpace(1)
-//            viewTabelNilai("Sosial Emosional", getKalimatSosialEmosi())
-//        }
-//        while(getKalimatSeni()=="_") {
-//            addVerticalSpace(1)
-//            viewTabelTitleNilai("Seni", "F")
-//            addVerticalSpace(1)
-//            viewTabelNilai("Seni", getKalimatSeni())
-//        }
-//
-//        //tabel tidak hadir
-//        addVerticalSpace(1)
-//        viewTabelTitleNilai("Ketidakhadiran", "G")
-//        addVerticalSpace(1)
-//        viewTabelAbsen()
-//
-//        while(getKalimatCatatanGuru()=="_") {
-//            addVerticalSpace(1)
-//            viewTabelTitleNilai("Catatan Guru Kelas", "H")
-//            addVerticalSpace(1)
-//            viewTabelNilai("Catatan Guru Kelas", getKalimatCatatanGuru())
-//        }
-//
-//        //tabel tanggapan ortu
-//        addVerticalSpace(1)
-//        viewTabelTitleNilai("Tanggapan Orang Tua", "I")
-//        addVerticalSpace(1)
-//        viewTabelNilai("Tanggapan Orang Tua","")
-//
-//        //tabel ttd
-//        addVerticalSpace(3)
-//        viewTabelTTDGuruDanOrtu(tanggal)
-//        addVerticalSpace(1)
-//        viewTabelTTDKepsek(kepsek)
+        addVerticalSpace(1)
+        viewTabelTitleNilai("(FM) Fisik Motorik", "B")
+        addVerticalSpace(1)
+        viewTabelNilai("(FM) Fisik Motorik", loadKalimat("2",kelas, nilai.get(1)))
 
-            getDocument().write(getOutputDestination())
+        addVerticalSpace(1)
+        viewTabelTitleNilai("(KOG) Kognitif", "C")
+        addVerticalSpace(1)
+        viewTabelNilai("(KOG) Kognitif", loadKalimat("3",kelas, nilai.get(2)))
+
+        addVerticalSpace(1)
+        viewTabelTitleNilai("(Bahasa) BAHASA", "D")
+        addVerticalSpace(1)
+        viewTabelNilai("(Bahasa) BAHASA", loadKalimat("4",kelas, nilai.get(3)))
+
+        addVerticalSpace(1)
+        viewTabelTitleNilai("Sosial Emosional", "E")
+        addVerticalSpace(1)
+        viewTabelNilai("Sosial Emosional", loadKalimat("5",kelas, nilai.get(4)))
+
+        addVerticalSpace(1)
+        viewTabelTitleNilai("Seni", "F")
+        addVerticalSpace(1)
+        viewTabelNilai("Seni", loadKalimat("6",kelas, nilai.get(5)))
+
+        //tabel tidak hadir
+        addVerticalSpace(1)
+        viewTabelTitleNilai("Ketidakhadiran", "G")
+        addVerticalSpace(1)
+        viewTabelAbsen()
+
+        addVerticalSpace(1)
+        viewTabelTitleNilai("Catatan Guru Kelas", "H")
+        addVerticalSpace(1)
+        viewTabelNilai("Catatan Guru Kelas", loadKalimat("7",kelas, nilai.get(6)))
+
+        //tabel tanggapan ortu
+        addVerticalSpace(1)
+        viewTabelTitleNilai("Tanggapan Orang Tua", "I")
+        addVerticalSpace(1)
+        viewTabelNilai("Tanggapan Orang Tua","")
+
+        //tabel ttd
+        addVerticalSpace(3)
+        viewTabelTTDGuruDanOrtu(tanggal)
+        addVerticalSpace(1)
+        viewTabelTTDKepsek(kepsek)
+
+        getDocument().write(getOutputDestination())
     }
+    //fungsi spesial
+    fun loadKalimat(id:String,kelas:String,nilai:String):String{
+        val namaFile = String.format(
+            "%s%s_btg%s",id,kelas.uppercase(),nilai)
+
+        val parentFolder = File(Environment.getExternalStorageDirectory(),"Raport")
+        val kalimatFolder = File(parentFolder,"KalimatRaport")
+
+        val file = File(kalimatFolder,"/"+ namaFile +".txt")
+
+        if(file.exists()){
+            val br = file.bufferedReader()
+            val txtTmp = br.use { it.readText() }
+            return txtTmp
+        }
+        else{
+            return "BELUM DIATUR"
+        }
+    }
+
+    //setter
+    fun setOutputDestination(path:File,namaFile:String,tahun:String,kelas:String){
+        outputDestination= FileOutputStream(File(path,"/"+namaFile+".docx"))
+    }
+    fun setDocument(){
+        document = XWPFDocument()
+    }
+
+    //getter
+    fun getOutputDestination():FileOutputStream{
+        return outputDestination
+    }
+    fun getDocument():XWPFDocument{
+        return document
+    }
+
 
     //fungsi pembuatan tabel
     fun viewTabel1Identitas(nama:String,nomorinduk:String){
@@ -169,7 +177,7 @@ class ExportDocument {
         hideAllBorder(cellNis)
         addBottomBorder(cellNis)
     }
-    fun viewTabel2Title(){
+    fun viewTabel2Title(semester:String){
         val tabel = getDocument().createTable(3,1)
         setColumnWidth(tabel,0,8190)
         setFixedTableLayout(tabel)
@@ -184,7 +192,7 @@ class ExportDocument {
 
         val cellTxtSem1 = tabel.getRow(2).getCell(0)
         hideAllBorder(cellTxtSem1)
-        setCellStyle(cellTxtSem1,"Times New Roman", 18, "000000", true, "SEMESTER",ParagraphAlignment.CENTER)
+        setCellStyle(cellTxtSem1,"Times New Roman", 18, "000000", true, "SEMESTER "+semester,ParagraphAlignment.CENTER)
     }
     fun viewTabelTitleNilai(bidang:String,huruf:String){
         val title = getDocument().createTable(1,1)
@@ -315,9 +323,6 @@ class ExportDocument {
     }
 
     //fungsi khusus
-    fun permission():Array<String>{
-        return arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    }
     fun setTableAlign(table:XWPFTable,align:ParagraphAlignment){
         val tblPr = table.ctTbl.tblPr
         var jc = tblPr.getJc()
@@ -351,7 +356,7 @@ class ExportDocument {
             index+=1
         }
     }
-    fun setIndividuWidth(cell:XWPFTableCell){
+    fun setOneCellWidth(cell:XWPFTableCell){
         val cellwidth = cell.ctTc.addNewTcPr().addNewTcW()
 
         val pr = cell.ctTc.addNewTcPr()
@@ -517,353 +522,5 @@ class ExportDocument {
         }
 
         tcBorder.addNewBottom().setVal(STBorder.THICK)
-    }
-
-    //fungsi setter nilai dan kalimat
-    fun setKalimatAgamaMoral(tahun:String,kelas:String,nama:String){
-        var nilai = ""
-        //ambil nilai dulu dari db
-        val refKelas = FirebaseDatabase.getInstance()
-            .getReference("DB")
-            .child(tahun)
-            .child(kelas).child(nama)
-            .child("tugas")
-            .child("1_Agama dan Moral")
-
-        refKelas.addValueEventListener(object:ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                nilai = snapshot.child("nilai").getValue().toString()
-                refKelas.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
-        val refKalimat = FirebaseDatabase.getInstance()
-            .getReference("KalimatNilaiRaport")
-            .child(kelas)
-            .child("1")
-        refKalimat.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(nilai=="0"){
-                    kalimatAgamaMoral="Belum Dinilai"
-                }else if(nilai=="1"){
-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
-                }else if(nilai=="2"){
-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
-                }else if(nilai=="3"){
-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
-                }else if(nilai=="4"){
-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
-                }
-                refKalimat.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun setKalimatFisikMotorik(tahun:String,kelas:String,nama:String){
-        var nilai = ""
-        //ambil nilai dulu dari db
-        val refKelas = FirebaseDatabase.getInstance()
-            .getReference("DB")
-            .child(tahun)
-            .child(kelas).child(nama)
-            .child("tugas")
-            .child("2_Fisik Motorik")
-
-        refKelas.addValueEventListener(object:ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                nilai = snapshot.child("nilai").getValue().toString()
-                refKelas.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
-        val refKalimat = FirebaseDatabase.getInstance()
-            .getReference("KalimatNilaiRaport")
-            .child(kelas)
-            .child("2")
-        refKalimat.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(nilai=="0"){
-                    kalimatAgamaMoral="Belum Dinilai"
-                }else if(nilai=="1"){
-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
-                }else if(nilai=="2"){
-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
-                }else if(nilai=="3"){
-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
-                }else if(nilai=="4"){
-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
-                }
-                refKalimat.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun setKalimatKognitif(tahun:String,kelas:String,nama:String){
-        var nilai = ""
-        //ambil nilai dulu dari db
-        val refKelas = FirebaseDatabase.getInstance()
-            .getReference("DB")
-            .child(tahun)
-            .child(kelas).child(nama)
-            .child("tugas")
-            .child("3_Kognitif")
-
-        refKelas.addValueEventListener(object:ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                nilai = snapshot.child("nilai").getValue().toString()
-                refKelas.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
-        val refKalimat = FirebaseDatabase.getInstance()
-            .getReference("KalimatNilaiRaport")
-            .child(kelas)
-            .child("3")
-        refKalimat.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(nilai=="0"){
-                    kalimatAgamaMoral="Belum Dinilai"
-                }else if(nilai=="1"){
-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
-                }else if(nilai=="2"){
-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
-                }else if(nilai=="3"){
-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
-                }else if(nilai=="4"){
-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
-                }
-                refKalimat.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun setKalimatBahasa(tahun:String,kelas:String,nama:String){
-        var nilai = ""
-        //ambil nilai dulu dari db
-        val refKelas = FirebaseDatabase.getInstance()
-            .getReference("DB")
-            .child(tahun)
-            .child(kelas).child(nama)
-            .child("tugas")
-            .child("4_Bahasa")
-
-        refKelas.addValueEventListener(object:ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                nilai = snapshot.child("nilai").getValue().toString()
-                refKelas.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
-        val refKalimat = FirebaseDatabase.getInstance()
-            .getReference("KalimatNilaiRaport")
-            .child(kelas)
-            .child("1")
-        refKalimat.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(nilai=="0"){
-                    kalimatAgamaMoral="Belum Dinilai"
-                }else if(nilai=="1"){
-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
-                }else if(nilai=="2"){
-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
-                }else if(nilai=="3"){
-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
-                }else if(nilai=="4"){
-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
-                }
-                refKalimat.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun setKalimatSosialEmosi(tahun:String,kelas:String,nama:String){
-        var nilai = ""
-        //ambil nilai dulu dari db
-        val refKelas = FirebaseDatabase.getInstance()
-            .getReference("DB")
-            .child(tahun)
-            .child(kelas).child(nama)
-            .child("tugas")
-            .child("5_Sosial Emosional")
-
-        refKelas.addValueEventListener(object:ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                nilai = snapshot.child("nilai").getValue().toString()
-                refKelas.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
-        val refKalimat = FirebaseDatabase.getInstance()
-            .getReference("KalimatNilaiRaport")
-            .child(kelas)
-            .child("5")
-        refKalimat.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(nilai=="0"){
-                    kalimatAgamaMoral="Belum Dinilai"
-                }else if(nilai=="1"){
-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
-                }else if(nilai=="2"){
-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
-                }else if(nilai=="3"){
-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
-                }else if(nilai=="4"){
-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
-                }
-                refKalimat.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun setKalimatSeni(tahun:String,kelas:String,nama:String){
-        var nilai = ""
-        //ambil nilai dulu dari db
-        val refKelas = FirebaseDatabase.getInstance()
-            .getReference("DB")
-            .child(tahun)
-            .child(kelas).child(nama)
-            .child("tugas")
-            .child("6_Seni")
-
-        refKelas.addValueEventListener(object:ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                nilai = snapshot.child("nilai").getValue().toString()
-                refKelas.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
-        val refKalimat = FirebaseDatabase.getInstance()
-            .getReference("KalimatNilaiRaport")
-            .child(kelas)
-            .child("6")
-        refKalimat.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(nilai=="0"){
-                    kalimatAgamaMoral="Belum Dinilai"
-                }else if(nilai=="1"){
-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
-                }else if(nilai=="2"){
-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
-                }else if(nilai=="3"){
-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
-                }else if(nilai=="4"){
-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
-                }
-                refKalimat.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun setKalimatCatatanGuru(tahun:String,kelas:String,nama:String){
-        var nilai = 0
-        var nilaiList=ArrayList<Int>()
-
-        //ambil nilai dulu dari db
-        val refKelas = FirebaseDatabase.getInstance()
-            .getReference("DB")
-            .child(tahun)
-            .child(kelas).child(nama)
-            .child("tugas")
-
-        refKelas.addValueEventListener(object:ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for(item:DataSnapshot in snapshot.getChildren()){
-                    nilai += (item.child("nilai").getValue().toString()).toInt()
-                }
-                refKelas.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-
-        val tmp = nilai.toDouble()/6
-        nilai = Math.floor(tmp).toInt()
-
-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
-        val refKalimat = FirebaseDatabase.getInstance()
-            .getReference("KalimatNilaiRaport")
-            .child(kelas)
-            .child("7")
-        refKalimat.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(nilai==0){
-                    kalimatAgamaMoral="Belum Dinilai"
-                }else if(nilai==1){
-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
-                }else if(nilai==2){
-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
-                }else if(nilai==3){
-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
-                }else if(nilai==4){
-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
-                }
-                refKalimat.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-
-    //fungsi getter nilai dan kalimat
-    fun getKalimatAgamaMoral():String{return kalimatAgamaMoral}
-    fun getKalimatFisikMotorik():String{return kalimatFisikMotorik}
-    fun getKalimatKognitif():String{return kalimatKognitif}
-    fun getKalimatBahasa():String{return kalimatBahasa}
-    fun getKalimatSosialEmosi():String{return kalimatSosialEmosi}
-    fun getKalimatSeni():String{return kalimatSeni}
-    fun getKalimatCatatanGuru():String{return kalimatCatatanGuru}
-
-    //setter
-    fun setOutputDestination(path:File,namaFile:String,tahun:String,kelas:String){
-        outputDestination= FileOutputStream(File(path,"/"+namaFile+".docx"))
-    }
-    fun setDocument(){
-        document = XWPFDocument()
-    }
-
-    //getter
-    fun getOutputDestination():FileOutputStream{
-        return outputDestination
-    }
-    fun getDocument():XWPFDocument{
-        return document
     }
 }

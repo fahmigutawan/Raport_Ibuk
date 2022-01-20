@@ -1,18 +1,14 @@
 package com.example.raportibukrevisi
 
+import android.media.audiofx.EnvironmentalReverb
 import android.os.Bundle
-import android.util.Log
+import android.os.Environment
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import java.io.File
+import java.io.FileOutputStream
 
 class SettingKalimat:AppCompatActivity() {
     private lateinit var kelasDropdown:AutoCompleteTextView
@@ -23,14 +19,16 @@ class SettingKalimat:AppCompatActivity() {
     private lateinit var btg4Input:TextInputEditText
     private lateinit var setKalimatBtn:Button
 
+    private lateinit var saveFolder:File
+
     //list dan adapter
-    private var bidangList=ArrayList<String>()
+    private var listReq = ListRequired()
+    private lateinit var kelasAdapter:ArrayAdapter<String>
     private lateinit var bidangAdapter:ArrayAdapter<String>
 
     //bidang selected
     private var bidangSelected="_"
     private var kelasSelected="_"
-    private var idBidangSelected="_"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +37,7 @@ class SettingKalimat:AppCompatActivity() {
         callDeklarasi()
         callBidangPreview()
         callKelasPreview()
+        setSaveFolder()
 
         //click listener dropdown
         kelasDropdown.setOnItemClickListener(object:AdapterView.OnItemClickListener{
@@ -49,10 +48,13 @@ class SettingKalimat:AppCompatActivity() {
                 id: Long
             ) {
                 setKelasSelected(parent?.getItemAtPosition(position).toString().lowercase())
+                if(getBidangSelected()!="_"){
+                    loadFile()
+                }
             }
 
         })
-        bidangDropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener{
+        bidangDropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener {
             override fun onItemClick(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -60,25 +62,17 @@ class SettingKalimat:AppCompatActivity() {
                 id: Long
             ) {
                 setBidangSelected(parent?.getItemAtPosition(position).toString())
-                setIdBidangSelected(getBidangSelected())
-                updateRecentKalimat(getKelasSelected(),getIdBidangSelected())
+                if(getKelasSelected()!="_"){
+                    loadFile()
+                }
             }
 
         })
 
         //jika klik set kalimat
         setKalimatBtn.setOnClickListener {
-            //upload kalimat btg 1
-            uploadKalimat(getKelasSelected(),getIdBidangSelected(),btg1Input,"btg1")
-
-            //upload kalimat btg 2
-            uploadKalimat(getKelasSelected(),getIdBidangSelected(),btg2Input,"btg2")
-
-            //upload kalimat btg 3
-            uploadKalimat(getKelasSelected(),getIdBidangSelected(),btg3Input,"btg3")
-
-            //upload kalimat btg 4
-            uploadKalimat(getKelasSelected(),getIdBidangSelected(),btg4Input,"btg4")
+            saveFile()
+            Toast.makeText(applicationContext,"BERHASIL DISIMPAN",Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -93,62 +87,95 @@ class SettingKalimat:AppCompatActivity() {
     }
     fun callKelasPreview(){
         setKelasSelected("_")
-        var kelasList = ArrayList<String>()
-        kelasList.add("A")
-        kelasList.add("B")
-
-        var kelasAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,kelasList)
+        kelasAdapter= ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listKelas())
         kelasDropdown.setAdapter(kelasAdapter)
-
     }
     fun callBidangPreview(){
-        FirebaseDatabase.getInstance()
-            .getReference("KalimatNilaiRaport")
-            .child("a")
-            .addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                bidangList.clear()
-                for(item:DataSnapshot in snapshot.getChildren()){
-                    bidangList.add(item.child("nama bidang").getValue().toString().replace("_","."))
-                }
-
-                //remove
-                FirebaseDatabase.getInstance()
-                    .getReference("KalimatNilaiRaport")
-                    .child("a").removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-        bidangAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,bidangList)
+        setBidangSelected("_")
+        bidangAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listBidang())
         bidangDropdown.setAdapter(bidangAdapter)
     }
-    fun updateRecentKalimat(kelas:String,id:String){
-        val ref = FirebaseDatabase.getInstance().getReference("KalimatNilaiRaport").child(kelas).child(id)
+    fun loadFile(){
+        val fileBtg1 = File(getSaveFolder(),"/"+namaFile("btg1")+".txt")
+        val fileBtg2 = File(getSaveFolder(),"/"+namaFile("btg2")+".txt")
+        val fileBtg3 = File(getSaveFolder(),"/"+namaFile("btg3")+".txt")
+        val fileBtg4 = File(getSaveFolder(),"/"+namaFile("btg4")+".txt")
 
-        ref.addValueEventListener(object:ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                btg1Input.setText(snapshot.child("btg1").getValue().toString())
-                btg2Input.setText(snapshot.child("btg2").getValue().toString())
-                btg3Input.setText(snapshot.child("btg3").getValue().toString())
-                btg4Input.setText(snapshot.child("btg4").getValue().toString())
+        if(fileBtg1.exists()){
+            val br = fileBtg1.bufferedReader()
+            val txtTmp = br.use { it.readText() }
+            btg1Input.setText(txtTmp)
+        }
+        else{
+            btg1Input.setText("BELUM DIATUR")
+        }
 
-                ref.removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
+        if(fileBtg2.exists()){
+            val br = fileBtg2.bufferedReader()
+            val txtTmp = br.use { it.readText() }
+            btg2Input.setText(txtTmp)
+        }
+        else{
+            btg2Input.setText("BELUM DIATUR")
+        }
+
+        if(fileBtg3.exists()){
+            val br = fileBtg3.bufferedReader()
+            val txtTmp = br.use { it.readText() }
+            btg3Input.setText(txtTmp)
+        }
+        else{
+            btg3Input.setText("BELUM DIATUR")
+        }
+
+        if(fileBtg4.exists()){
+            val br = fileBtg4.bufferedReader()
+            val txtTmp = br.use { it.readText() }
+            btg4Input.setText(txtTmp)
+        }
+        else{
+            btg4Input.setText("BELUM DIATUR")
+        }
     }
-    fun uploadKalimat(kelas:String,id: String,btgInput:TextInputEditText,btgName:String){
+    fun namaFile(star:String):String{
+        //nama bidang dijadikan array terdiri dari 2, index pertama sebagai ID
+        var arrBidangTmp = getBidangSelected().split(".")
 
-        FirebaseDatabase.getInstance()
-            .getReference("KalimatNilaiRaport")
-            .child(kelas)
-            .child(id)
-            .child(btgName)
-            .setValue(btgInput.getText().toString())
+        //format nama file 1A_btg1 (1 mewaliki kode bidang, star 1 mewakili bintang 1
+        var nama=String.format(
+            "%s%s_%s"
+            ,arrBidangTmp.get(0)
+            ,getKelasSelected().uppercase()
+            ,star
+        )
+
+        return nama
+    }
+    fun saveFile(){
+        val outputBtg1 = File(getSaveFolder(),"/"+namaFile("btg1")+".txt")
+        val outputBtg2 = File(getSaveFolder(),"/"+namaFile("btg2")+".txt")
+        val outputBtg3 = File(getSaveFolder(),"/"+namaFile("btg3")+".txt")
+        val outputBtg4 = File(getSaveFolder(),"/"+namaFile("btg4")+".txt")
+
+        if((
+                    btg1Input.getText().toString()!=""
+                    && btg2Input.getText().toString()!=""
+                    && btg3Input.getText().toString()!=""
+                    && btg4Input.getText().toString()!=""
+                    )||(
+                    btg1Input.getText().toString()!="BELUM DIATUR"
+                    && btg1Input.getText().toString()!="BELUM DIATUR"
+                    && btg1Input.getText().toString()!="BELUM DIATUR"
+                    && btg1Input.getText().toString()!="BELUM DIATUR"
+                    )) {
+            outputBtg1.writeText(btg1Input.getText().toString())
+            outputBtg2.writeText(btg2Input.getText().toString())
+            outputBtg3.writeText(btg3Input.getText().toString())
+            outputBtg4.writeText(btg4Input.getText().toString())
+        }
+        else{
+            Toast.makeText(applicationContext, "Masukkan Kalimat Dengan Lengkap",Toast.LENGTH_SHORT).show()
+        }
     }
 
     //setter
@@ -158,9 +185,16 @@ class SettingKalimat:AppCompatActivity() {
     fun setKelasSelected(kelas:String){
         kelasSelected=kelas
     }
-    fun setIdBidangSelected(bidang:String){
-        var tmp = bidang.split(".")
-        idBidangSelected = tmp.get(0)
+    fun setSaveFolder(){
+        val parentFolder = File(Environment.getExternalStorageDirectory(),"Raport")
+        if(!parentFolder.isDirectory){
+            parentFolder.mkdirs()
+        }
+
+        saveFolder = File(parentFolder, "KalimatRaport")
+        if(!saveFolder.isDirectory){
+            saveFolder.mkdirs()
+        }
     }
 
     //getter
@@ -170,7 +204,7 @@ class SettingKalimat:AppCompatActivity() {
     fun getKelasSelected():String{
         return kelasSelected
     }
-    fun getIdBidangSelected():String{
-        return idBidangSelected
+    fun getSaveFolder():File{
+        return saveFolder
     }
 }
