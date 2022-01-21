@@ -92,7 +92,7 @@ class SettingKalimat:AppCompatActivity() {
     }
     fun callBidangPreview(){
         setBidangSelected("_")
-        bidangAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listBidang())
+        bidangAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listBidang(this))
         bidangDropdown.setAdapter(bidangAdapter)
     }
     fun loadFile(){

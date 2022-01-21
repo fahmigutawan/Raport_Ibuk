@@ -14,17 +14,19 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class TambahMurid:AppCompatActivity() {
-    lateinit var tahunAjaran1: TextInputEditText
-    lateinit var tahunAjaran2: TextInputEditText
-    lateinit var namaLengkap: TextInputEditText
-    lateinit var nomorInduk: TextInputEditText
-    lateinit var tambah_btn: Button
-    lateinit var kelas: TextInputEditText
-    lateinit var hapus_kelas: Button
-    lateinit var hapus_induk: Button
-    lateinit var hapus_nama: Button
+    private lateinit var tahunAjaran1: TextInputEditText
+    private lateinit var tahunAjaran2: TextInputEditText
+    private lateinit var namaLengkap: TextInputEditText
+    private lateinit var nomorInduk: TextInputEditText
+    private lateinit var tambah_btn: Button
+    private lateinit var kelas: TextInputEditText
+    private lateinit var hapus_kelas: Button
+    private lateinit var hapus_induk: Button
+    private lateinit var hapus_nama: Button
 
     private var isConnected=false
+
+    private var dbReference = DbReference()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,107 +36,29 @@ class TambahMurid:AppCompatActivity() {
         setDeklarasi()
         setConnectedState()
 
-        //setDatabase saat tombol tambah diklik
         tambah_btn.setOnClickListener {
-            if(tahunAjaran1.getText().toString()=="" ||
-                tahunAjaran2.getText().toString()=="" ||
-                nomorInduk.getText().toString()=="" ||
-                namaLengkap.getText().toString()=="" ||
-                kelas.getText().toString()=="")
-            {
-                Toast.makeText(applicationContext,"Harap isi semua form", Toast.LENGTH_SHORT).show()
+            if(
+                tahunAjaran2.text.toString()!=""
+                && tahunAjaran1.text.toString()!=""
+                && namaLengkap.text.toString()!=""
+                && nomorInduk.text.toString()!=""
+                && kelas.text.toString()!=""
+                && (kelas.text.toString() == "A" || kelas.text.toString()=="B" || kelas.text.toString() == "a" || kelas.text.toString()=="b")
+                && (tahunAjaran2.text.toString().toInt() - tahunAjaran1.text.toString().toInt()==1)
+            ) {
+                if(isConnected) {
+                    uploadDataMurid()
+                    Toast.makeText(applicationContext, "BERHASIL", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(applicationContext,"Masalah Koneksi", Toast.LENGTH_SHORT).show()
+                }
             }
             else{
-                if(isConnected){
-                    if(
-                        tahunAjaran2.getText().toString().trim().toInt()-tahunAjaran1.getText().toString().trim().toInt()==1
-                    ){
-                        if(
-                            kelas.getText().toString()=="A"||
-                            kelas.getText().toString()=="a"||
-                            kelas.getText().toString()=="B"||
-                            kelas.getText().toString()=="b"
-                        ){
-                            setNewDatabase(
-                                tahunAjaran1.getText().toString().trim(),
-                                tahunAjaran2.getText().toString().trim(),
-                                namaLengkap.getText().toString().trim(),
-                                nomorInduk.getText().toString().trim(),
-                                kelas.getText().toString().trim().lowercase()
-                            )
-                            Toast.makeText(applicationContext,"Data Berhasil Dikirim", Toast.LENGTH_LONG).show()
-                        }else{
-                            Toast.makeText(applicationContext,"Gagal, Pastikan Masukkan Kelas A atau B",
-                                Toast.LENGTH_SHORT).show()
-                        }
-
-                    }else{
-                        Toast.makeText(applicationContext,"Gagal, Cek Kembali Tahun Ajaran", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                else{
-                    Toast.makeText(applicationContext,"Harap Pastikan Koneksi Anda Baik", Toast.LENGTH_SHORT).show()
-                }
+                Toast.makeText(applicationContext,"CEK KEMBALI DATA ANDA", Toast.LENGTH_SHORT).show()
             }
         }
-
-        //setting hapus
-        hapus_induk.setOnClickListener {
-            nomorInduk.setText("")
-        }
-        hapus_nama.setOnClickListener {
-            namaLengkap.setText("")
-        }
-        hapus_kelas.setOnClickListener {
-            kelas.setText("")
-        }
-
     }
 
-    fun setNewDatabase(tahunAjaran1:String,tahunAjaran2:String,namaLengkap:String,nomorInduk:String,kelas:String){
-        val tahunAjaran_temp = tahunAjaran1+"_"+tahunAjaran2
-
-        val dbRef = FirebaseDatabase.getInstance().getReference("DB").child(tahunAjaran_temp)
-
-        //masukkan nomor induk, nama, tahun, kelas
-        val dbRefParent = dbRef.child(kelas).child(namaLengkap)
-
-        //informasi child
-        dbRef.child("tahun").setValue(tahunAjaran_temp)
-        dbRef.child(kelas).child("kelas").setValue(kelas)
-
-        //data
-        dbRefParent.child("nama").setValue(namaLengkap)
-        dbRefParent.child("nomor induk").setValue(nomorInduk)
-        dbRefParent.child("tahun").setValue(tahunAjaran_temp)
-        dbRefParent.child("kelas").setValue(kelas)
-        dbRefParent.child("kelas").setValue(kelas)
-
-        //masukkan tugas baru
-        FirebaseDatabase
-            .getInstance()
-            .getReference("KalimatNilaiRaport")
-            .child("a")
-            .addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for(item: DataSnapshot in snapshot.getChildren()){
-                    var namatugas_tmp = item.child("nama bidang").getValue().toString()
-
-                    //tambahkan item ke user
-                    dbRefParent.child("tugas").child(namatugas_tmp).child("nama tugas").setValue(namatugas_tmp)
-                    dbRefParent.child("tugas").child(namatugas_tmp).child("nilai").setValue("0")
-                }
-
-                FirebaseDatabase
-                    .getInstance()
-                    .getReference("KalimatNilaiRaport")
-                    .child("a").removeEventListener(this)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
     fun setDeklarasi(){
         tahunAjaran1 = findViewById(R.id.tahun1_tambah_input)
         tahunAjaran2 = findViewById(R.id.tahun2_tambah_input)
@@ -162,5 +86,52 @@ class TambahMurid:AppCompatActivity() {
             }
         })
     }
-}
+    fun uploadDataMurid(){
+        var tahunAjaran1 = tahunAjaran1.text.toString()
+        var tahunAjaran2 = tahunAjaran2.text.toString()
+        var kelas = kelas.text.toString()
+        kelas = kelas.lowercase()
+        var nomorInduk = nomorInduk.text.toString()
+        var nama = namaLengkap.text.toString()
+        var tahunTmp = tahunAjaran1+"_"+tahunAjaran2
 
+        //masukkan informasi child
+        dbReference.refMain().child(tahunTmp).child("tahun").setValue(tahunTmp)
+        dbReference.refMain().child(tahunTmp).child(kelas).child("kelas").setValue(kelas)
+
+        //masukkan identitas
+        dbReference.refMain().child(tahunTmp).child(kelas).child(nama).child("nama").setValue(nama)
+        dbReference.refMain().child(tahunTmp).child(kelas).child(nama).child("kelas").setValue(kelas)
+        dbReference.refMain().child(tahunTmp).child(kelas).child(nama).child("nomor induk").setValue(nomorInduk)
+        dbReference.refMain().child(tahunTmp).child(kelas).child(nama).child("tahun").setValue(tahunTmp)
+
+        //masukkan tugas yang sudah ada ke dalam child murid
+        dbReference.refKalimat().child("a").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(item:DataSnapshot in snapshot.children){
+                    dbReference.refMain()
+                        .child(tahunTmp)
+                        .child(kelas)
+                        .child(nama)
+                        .child("tugas")
+                        .child(item.child("nama bidang").getValue().toString())
+                        .child("nama bidang")
+                        .setValue(item.child("nama bidang").getValue().toString())
+                    dbReference.refMain()
+                        .child(tahunTmp)
+                        .child(kelas)
+                        .child(nama)
+                        .child("tugas")
+                        .child(item.child("nama bidang").getValue().toString())
+                        .child("nilai")
+                        .setValue("0")
+
+                    dbReference.refKalimat().child("a").removeEventListener(this)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+}

@@ -1,0 +1,2867 @@
+Index: app/src/main/java/com/example/raportibukrevisi/GetKalimatNilai.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/raportibukrevisi/GetKalimatNilai.kt b/app/src/main/java/com/example/raportibukrevisi/GetKalimatNilai.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/raportibukrevisi/GetKalimatNilai.kt	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ /dev/null	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
+@@ -1,73 +0,0 @@
+-package com.example.raportibukrevisi
+-
+-import com.google.firebase.database.DataSnapshot
+-import com.google.firebase.database.DatabaseError
+-import com.google.firebase.database.FirebaseDatabase
+-import com.google.firebase.database.ValueEventListener
+-
+-class GetKalimatNilai {
+-    fun getBintang1(kelas:String,idTugas:String):String{
+-        val ref = FirebaseDatabase.getInstance().getReference("KalimatNilaiRaport").child(kelas).child(idTugas)
+-        var kalimat = ""
+-
+-        ref.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                kalimat = snapshot.child("btg1").getValue().toString()
+-
+-                ref.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-        return kalimat
+-    }
+-    fun getBintang2(kelas:String,idTugas:String):String{
+-        val ref = FirebaseDatabase.getInstance().getReference("KalimatNilaiRaport").child(kelas).child(idTugas)
+-        var kalimat = ""
+-
+-        ref.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                kalimat = snapshot.child("btg2").getValue().toString()
+-
+-                ref.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-        return kalimat
+-    }
+-    fun getBintang3(kelas:String,idTugas:String):String{
+-        val ref = FirebaseDatabase.getInstance().getReference("KalimatNilaiRaport").child(kelas).child(idTugas)
+-        var kalimat = ""
+-
+-        ref.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                kalimat = snapshot.child("btg3").getValue().toString()
+-
+-                ref.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-        return kalimat
+-    }
+-    fun getBintang4(kelas:String,idTugas:String):String{
+-        val ref = FirebaseDatabase.getInstance().getReference("KalimatNilaiRaport").child(kelas).child(idTugas)
+-        var kalimat = ""
+-
+-        ref.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                kalimat = snapshot.child("btg4").getValue().toString()
+-
+-                ref.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-        return kalimat
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/raportibukrevisi/SetKalimatNilai.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/raportibukrevisi/SetKalimatNilai.kt b/app/src/main/java/com/example/raportibukrevisi/SetKalimatNilai.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/raportibukrevisi/SetKalimatNilai.kt	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ /dev/null	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
+@@ -1,4 +0,0 @@
+-package com.example.raportibukrevisi
+-
+-class SetKalimatNilai {
+-}
+\ No newline at end of file
+Index: app/src/main/res/layout/export_raport.xml
+===================================================================
+diff --git a/app/src/main/res/layout/export_raport.xml b/app/src/main/res/layout/export_raport.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/export_raport.xml	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ /dev/null	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
+@@ -1,204 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    xmlns:app="http://schemas.android.com/apk/res-auto">
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:background="@drawable/midgray_bg"
+-        android:orientation="vertical"
+-        android:layout_marginLeft="22dp"
+-        android:layout_marginRight="22dp"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent">
+-
+-        <Button
+-            android:id="@+id/close_button_exportraport"
+-            android:layout_width="42dp"
+-            android:layout_height="42dp"
+-            android:layout_gravity="end|top"
+-            android:layout_marginTop="8dp"
+-            android:layout_marginRight="8dp"
+-            android:background="@drawable/button_red"
+-            android:foreground="@drawable/ic_baseline_close_24"
+-            android:foregroundGravity="fill" />
+-
+-        <TextView
+-            android:id="@+id/textView7"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="16dp"
+-            android:gravity="center"
+-            android:singleLine="false"
+-            android:text="Pengaturan Raport"
+-            android:textColor="@color/white"
+-            android:textSize="24dp"
+-
+-            android:textStyle="bold" />
+-
+-        <LinearLayout
+-            android:layout_marginTop="22dp"
+-            android:layout_width="match_parent"
+-            android:layout_height="match_parent"
+-            android:orientation="vertical">
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent"
+-                android:gravity="center"
+-                android:layout_weight="1"
+-                android:orientation="horizontal">
+-
+-                <LinearLayout
+-                    android:layout_width="150dp"
+-                    android:layout_height="wrap_content"
+-                    android:orientation="vertical"
+-                    android:layout_marginRight="14dp">
+-
+-                    <com.google.android.material.textfield.TextInputLayout
+-                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+-                        android:layout_width="match_parent"
+-                        android:layout_height="match_parent"
+-                        android:hint="Tahun"
+-                        app:boxBackgroundColor="@color/verylightgray"
+-                        app:boxCornerRadiusBottomEnd="18dp"
+-                        app:boxCornerRadiusBottomStart="18dp"
+-                        app:boxCornerRadiusTopEnd="18dp"
+-                        app:boxCornerRadiusTopStart="18dp"
+-                        app:hintAnimationEnabled="true"
+-                        app:hintEnabled="true">
+-
+-                        <AutoCompleteTextView
+-                            android:id="@+id/tahun_export_dropdown"
+-                            android:layout_width="match_parent"
+-                            android:layout_height="match_parent"
+-                            android:background="@null"
+-                            android:inputType="none"
+-                            android:text="pilih tahun"
+-                            android:textColor="#000000"
+-                            android:textSize="14dp"
+-                            android:textStyle="bold" />
+-                    </com.google.android.material.textfield.TextInputLayout>
+-                </LinearLayout>
+-
+-                <LinearLayout
+-                    android:layout_width="150dp"
+-                    android:layout_height="match_parent"
+-                    android:orientation="vertical"
+-                    android:layout_marginLeft="14dp">
+-
+-                    <com.google.android.material.textfield.TextInputLayout
+-                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+-                        android:layout_width="match_parent"
+-                        android:layout_height="match_parent"
+-                        android:background="@drawable/dropdown_selector"
+-                        android:hint="Kelas"
+-                        app:boxBackgroundColor="@color/verylightgray"
+-                        app:boxCornerRadiusBottomEnd="18dp"
+-                        app:boxCornerRadiusBottomStart="18dp"
+-                        app:boxCornerRadiusTopEnd="18dp"
+-                        app:boxCornerRadiusTopStart="18dp"
+-                        app:hintAnimationEnabled="true"
+-                        app:hintEnabled="true">
+-
+-                        <AutoCompleteTextView
+-                            android:id="@+id/kelas_export_dropdown"
+-                            android:layout_width="match_parent"
+-                            android:layout_height="match_parent"
+-                            android:layout_weight="1"
+-                            android:background="@null"
+-                            android:inputType="none"
+-                            android:text="pilih kelas"
+-                            android:textColor="#000000"
+-                            android:textSize="14dp"
+-                            android:textStyle="bold" />
+-                    </com.google.android.material.textfield.TextInputLayout>
+-                </LinearLayout>
+-
+-            </LinearLayout>
+-
+-            <TextView
+-                android:id="@+id/textView8"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:gravity="center"
+-                android:singleLine="true"
+-                android:text="Tanggal Raport"
+-                android:textColor="@color/white"
+-                android:textSize="14dp"
+-                android:textStyle="bold"
+-                android:layout_marginTop="8dp"/>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:layout_marginTop="8dp"
+-                android:layout_width="match_parent"
+-                android:layout_marginLeft="16dp"
+-                android:layout_marginRight="16dp"
+-                android:layout_gravity="center"
+-                android:layout_height="match_parent"
+-                android:layout_weight="1"
+-                app:boxCornerRadiusTopStart="18dp"
+-                app:boxCornerRadiusTopEnd="18dp"
+-                app:boxCornerRadiusBottomStart="18dp"
+-                app:boxCornerRadiusBottomEnd="18dp">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:id="@+id/tanggal_exportraport"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:hint="tanggal"
+-                    android:textSize="16dp"
+-                    android:inputType="text"/>
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <TextView
+-                android:id="@+id/textView9"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:gravity="center"
+-                android:text="Nama Kepala Sekolah"
+-                android:textColor="@color/white"
+-                android:textSize="14dp"
+-                android:textStyle="bold"
+-                android:layout_marginTop="8dp"/>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_marginTop="8dp"
+-                android:layout_marginLeft="16dp"
+-                android:layout_marginRight="16dp"
+-                app:boxCornerRadiusTopStart="18dp"
+-                app:boxCornerRadiusTopEnd="18dp"
+-                app:boxCornerRadiusBottomStart="18dp"
+-                app:boxCornerRadiusBottomEnd="18dp">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:id="@+id/kepsek_exporttugas"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:textSize="16dp"
+-                    android:hint="nama kepala sekolah"
+-                    android:inputType="text"/>
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-        </LinearLayout>
+-
+-        <Button
+-            android:id="@+id/export_exportraport_btn"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:drawableRight="@drawable/ic_baseline_download_24"
+-            android:layout_gravity="center"
+-            android:layout_marginTop="18dp"
+-            android:layout_marginBottom="32dp"
+-            android:layout_weight="1"
+-            android:background="@drawable/button_custom"
+-            android:text="Export" />
+-    </LinearLayout>
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/raportibukrevisi/TambahNilai.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/raportibukrevisi/TambahNilai.kt b/app/src/main/java/com/example/raportibukrevisi/TambahNilai.kt
+--- a/app/src/main/java/com/example/raportibukrevisi/TambahNilai.kt	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ b/app/src/main/java/com/example/raportibukrevisi/TambahNilai.kt	(date 1642650413693)
+@@ -2,10 +2,12 @@
+ 
+ import android.os.Bundle
+ import android.os.Handler
++import android.util.Log
+ import android.view.View
+ import android.widget.*
+ import androidx.appcompat.app.AlertDialog
+ import androidx.appcompat.app.AppCompatActivity
++import com.google.android.material.floatingactionbutton.FloatingActionButton
+ import com.google.android.material.textfield.TextInputEditText
+ import com.google.firebase.database.*
+ import com.google.firebase.database.ktx.database
+@@ -16,7 +18,7 @@
+     private lateinit var tugas_dropdown: AutoCompleteTextView
+     private lateinit var nama_dropdown: AutoCompleteTextView
+     private lateinit var kelas_dropdown: AutoCompleteTextView
+-    private lateinit var tambahtugasbaru_btn: Button
++    private lateinit var addtugasbaru_btn: Button
+     private lateinit var btg0_radio: RadioButton
+     private lateinit var btg1_radio: RadioButton
+     private lateinit var btg2_radio: RadioButton
+@@ -24,498 +26,260 @@
+     private lateinit var btg4_radio: RadioButton
+     private lateinit var submit_button: Button
+ 
+-    private lateinit var dbRef: DatabaseReference
+-    private lateinit var tahunList:ArrayList<String>
+-    private lateinit var tahunListAdapter: ArrayAdapter<String>
+-    private  var tahunSelected:String="_"
+-    private lateinit var kelasList:ArrayList<String>
+-    private lateinit var kelasListAdapter: ArrayAdapter<String>
+-    private  var kelasSelected:String="_"
+-    private lateinit var tugasList:ArrayList<String>
+-    private lateinit var tugasListAdapter: ArrayAdapter<String>
+-    private var tugasSelected:String="_"
+-    private lateinit var namaList:ArrayList<String>
+-    private lateinit var namaListAdapter: ArrayAdapter<String>
+-    private var namaSelected:String="_"
+-    private var bintangSelected:String="0"
+-    private var namaTugas:String="_"
+-    private lateinit var tugasBaru_uploaded:ArrayList<Boolean>
++    private lateinit var tahunAdapter:ArrayAdapter<String>
++    private lateinit var kelasAdapter:ArrayAdapter<String>
++    private lateinit var namaAdapter: ArrayAdapter<String>
++    private lateinit var bidangAdapter: ArrayAdapter<String>
++
++    private var tahunSelected="_"
++    private var kelasSelected="_"
++    private var namaSelected="_"
++    private var bidangSelected="_"
++    private var nilaiSelected="_"
++    private var recentNilai="_"
++
+     private var isConnected=false
++    private var listRequired = ListRequired()
++    private var uploadData = UploadData()
++    private var getData = GetData()
++    private var dbRef = DbReference()
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.tambahnilai_activity)
+ 
+-        deklarasi()
+-        setTahunPreview()
++        //precall
++        callDeklarasi()
+         setConnectedState()
+-        setRecentBintang()
++
++        refreshTahunDropdown()
++        refreshKelasDropdown()
++        refreshBidangDropdown()
+ 
+         //set pilihan terpilih
+-        tahun_dropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener{
++        tahun_dropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+             override fun onItemClick(
+                 parent: AdapterView<*>?,
+                 view: View?,
+                 position: Int,
+                 id: Long
+             ) {
+-                resetTahunSelecter()
+-                resetKelasSelected()
+-                if(isConnected){
+-                    tahunSelected = parent?.getItemAtPosition(position).toString().replace("-","_")
+-                    setKelasPreview()
+-                    if(kelasSelected!="_"){
+-                        refresherTugasDropdown()
+-                        refresherNamaDropdown()
+-                    }
+-
+-                }else{
+-                    Toast.makeText(applicationContext,"Harap Cek Kembali Koneksi Anda", Toast.LENGTH_SHORT).show()
+-                }
+-
++                setTahunSelected(parent?.getItemAtPosition(position).toString().replace("-","_"))
++                refreshBidangDropdown()
++                refreshKelasDropdown()
++                refreshNamaDropdown(getTahunSelected(),getKelasSelected())
++                refreshRecentBintang()
+             }
+ 
+         })
+-        kelas_dropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener{
++        kelas_dropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+             override fun onItemClick(
+                 parent: AdapterView<*>?,
+                 view: View?,
+                 position: Int,
+                 id: Long
+             ) {
+-                if(isConnected){
+-                    kelasSelected = parent?.getItemAtPosition(position).toString().lowercase()
+-                    if(tahunSelected!="_"){
+-                        refresherTugasDropdown()
+-                        refresherNamaDropdown()
+-                    }
+-                }else{
+-                    Toast.makeText(applicationContext,"Harap Cek Kembali Koneksi Anda", Toast.LENGTH_SHORT).show()
+-                }
+-
++                setKelasSelected(parent?.getItemAtPosition(position).toString().lowercase())
++                refreshBidangDropdown()
++                refreshNamaDropdown(getTahunSelected(),getKelasSelected())
++                refreshRecentBintang()
+             }
+         })
+-        tugas_dropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener{
++        tugas_dropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+             override fun onItemClick(
+                 parent: AdapterView<*>?,
+                 view: View?,
+                 position: Int,
+                 id: Long
+             ) {
+-//                if(nama_dropdown.getText().toString()=="pilih nama"){
+-//                    resetNamaSelected()
+-//                }
+-                if(isConnected){
+-                    var tmp = parent?.getItemAtPosition(position).toString().replace(".","_")
+-                    //var arrTmp = tmp.split(".")
+-                    tugasSelected=tmp
+-                    refresherNilaiBintang()
+-                }else{
+-                    Toast.makeText(applicationContext,"Harap Cek Kembali Koneksi Anda", Toast.LENGTH_SHORT).show()
+-                }
+-
++                setBidangSelected(parent?.getItemAtPosition(position).toString().replace(".","_"))
++                refreshRecentBintang()
+             }
+ 
+         })
+-        nama_dropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener{
++        nama_dropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+             override fun onItemClick(
+                 parent: AdapterView<*>?,
+                 view: View?,
+                 position: Int,
+                 id: Long
+             ) {
+-//                if(tugas_dropdown.getText().toString()=="pilih nama"){
+-//                    resetTugasSelected()
+-//                }
+-                if(isConnected){
+-                    namaSelected=parent?.getItemAtPosition(position).toString()
+-                    refresherNilaiBintang()
+-                    //tidak perlu refresher tugas, karena bisa jadi user ingin menambahkan nilai murid lain pada tugas yang sama
+-                }else{
+-                    Toast.makeText(applicationContext,"Harap Cek Kembali Koneksi Anda", Toast.LENGTH_SHORT).show()
+-                }
++                setNamaSelected(parent?.getItemAtPosition(position).toString())
++                refreshRecentBintang()
+             }
+ 
+         })
+ 
+-//        //fab tambah tugas baru
+-//        tambahtugasbaru_btn.setOnClickListener {
+-//            if(kelasSelected!="_" && tahunSelected!="_"){
+-//                val myLayoutInflater = View.inflate(this@TambahNilai, R.layout.tambah_tugas_baru,null)
+-//
+-//                val builder = AlertDialog.Builder(this@TambahNilai)
+-//                builder.setView(myLayoutInflater)
+-//
+-//                val dialog = builder.create()
+-//                dialog.show()
+-//                dialog.setCancelable(false)
+-//                dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+-//
+-//                //deklarasi
+-//                val btnTambah_dialog = myLayoutInflater.findViewById<Button>(R.id.tambahtugasbaru_button)
+-//                val btnClose_dialog = myLayoutInflater.findViewById<Button>(R.id.close_button_tambahtugas)
+-//                val inputUrutan_dialog = myLayoutInflater.findViewById<TextInputEditText>(R.id.urutan_tambahtugasbaru_input)
+-//                val inputNamaTugas_dialog = myLayoutInflater.findViewById<TextInputEditText>(R.id.tambahtugasbaru_input)
+-//
+-//                //submit tugas
+-//                btnTambah_dialog.setOnClickListener {
+-//                    if(inputUrutan_dialog.getText().toString()!="" && inputNamaTugas_dialog.getText().toString()!=""){
+-//
+-//                        setNamaTugas(inputNamaTugas_dialog.getText().toString())
+-//
+-//                        //cek apakah id ada
+-//                        dbRef.child(tahunSelected).child(kelasSelected).child("tugas kelas ini")
+-//                            .addValueEventListener(object : ValueEventListener
+-//                            {
+-//                                override fun onDataChange(snapshot: DataSnapshot) {
+-//                                    if(snapshot.hasChild(inputUrutan_dialog.getText().toString())){
+-//                                        Toast.makeText(applicationContext,"Nomor Urut Telah Digunakan, Gunakan Nomor Lain",
+-//                                            Toast.LENGTH_SHORT).show()
+-//                                    }
+-//                                    else{
+-//                                        if(isConnected){
+-//                                            //masukkan ke bagian reference DB
+-//                                            masukkanNamaTugasUser(
+-//                                                dbRef.child(tahunSelected).child(kelasSelected)
+-//                                                ,String.format("%s_%s",inputUrutan_dialog.getText().toString(),namaTugas)
+-//                                                ,inputUrutan_dialog.getText().toString())
+-//
+-//                                            //masukkan ke bagian reference KalimatNilaiRaport
+-//                                            masukkanNamaBidang(
+-//                                                FirebaseDatabase.getInstance().getReference("KalimatNilaiRaport")
+-//                                                ,String.format("%s_%s",inputUrutan_dialog.getText().toString(),namaTugas)
+-//                                                ,inputUrutan_dialog.getText().toString()
+-//                                                ,kelasSelected)
+-//
+-//                                            //tanda kalau berhasil
+-//                                            Toast.makeText(applicationContext,"Tugas Berhasil Ditambahkan",
+-//                                                Toast.LENGTH_SHORT).show()
+-//                                        }else{
+-//                                            Toast.makeText(applicationContext,"Harap Cek Kembali Koneksi Anda",
+-//                                                Toast.LENGTH_SHORT).show()
+-//                                        }
+-//
+-//                                    }
+-//                                    dbRef.child(tahunSelected).child(kelasSelected).child("tugas kelas ini").removeEventListener(this)
+-//                                }
+-//                                override fun onCancelled(error: DatabaseError) {
+-//                                    TODO("Not yet implemented")
+-//                                }
+-//                            })
+-//                    }
+-//                    else{
+-//                        Toast.makeText(applicationContext,"Masukkan Nama Tugas dan Urutan Dengan Benar",
+-//                            Toast.LENGTH_SHORT).show()
+-//                    }
+-//                }
+-//                btnClose_dialog.setOnClickListener {
+-//                    dialog.dismiss()
+-//                    refresherTugasDropdown()
+-//                    refresherNilaiBintang()
+-//                }
+-//            }
+-//            else{
+-//                Toast.makeText(applicationContext,"Harap Isi Kelas dan Tahun Dengan Benar", Toast.LENGTH_SHORT).show()
+-//            }
+-//        }
+-
+-        //cek bintang dipilih
+         btg0_radio.setOnClickListener {
+-            setBintangSelected("0")
++            setNilaiSelected("0")
+         }
+         btg1_radio.setOnClickListener {
+-            setBintangSelected("1")
++            setNilaiSelected("1")
+         }
+         btg2_radio.setOnClickListener {
+-            setBintangSelected("2")
++            setNilaiSelected("2")
+         }
+         btg3_radio.setOnClickListener {
+-            setBintangSelected("3")
++            setNilaiSelected("3")
+         }
+         btg4_radio.setOnClickListener {
+-            setBintangSelected("4")
++            setNilaiSelected("4")
+         }
+ 
+-        //upload nilai
++        //submit data
+         submit_button.setOnClickListener {
+             if(isConnected){
+-                uploadNilai()
+-            }else{
+-                Toast.makeText(applicationContext,"Pastikan Koneksi Anda Baik", Toast.LENGTH_SHORT).show()
+-            }
+-        }
+-    }
+-
+-    //fungsi setter
+-    fun setTahunPreview(){
+-        tahunSelected="_"
+-        dbRef.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                tahunList.clear()
+-                for(item: DataSnapshot in snapshot.getChildren()){
+-                    tahunList.add(item.child("tahun").getValue().toString().replace("_","-"))
+-                }
+-            }
+-
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        tahunListAdapter = ArrayAdapter(this,
+-            R.layout.support_simple_spinner_dropdown_item, tahunList)
+-        tahun_dropdown.setAdapter(tahunListAdapter)
++                if(getTahunSelected()!="_"&&getKelasSelected()!="_"&&getNamaSelected()!="_"&&getBidangSelected()!="_"){
++                    uploadData(
++                        getTahunSelected(),
++                        getKelasSelected(),
++                        getNamaSelected(),
++                        getBidangSelected(),
++                        getNilaiSelected()
++                    )
++                    Toast.makeText(applicationContext,"BERHASIL",Toast.LENGTH_SHORT).show()
++                }
++                else{
++                    Toast.makeText(applicationContext,"Masukkan Semua Data dengan Benar",Toast.LENGTH_SHORT).show()
++                }
++            }
++            else{
++                Toast.makeText(applicationContext,"Periksa Koneksi Anda", Toast.LENGTH_SHORT).show()
++            }
++        }
++    }
++    fun refreshTahunDropdown(){
++        tahun_dropdown.setText("pilih tahun")
++        setTahunSelected("_")
++        tahunAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listRequired.listTahun())
++        tahun_dropdown.setAdapter(tahunAdapter)
+     }
+-    fun setKelasPreview(){
+-        kelasSelected="_"
++    fun refreshKelasDropdown(){
+         kelas_dropdown.setText("pilih kelas")
+-        dbRef.child(tahunSelected).addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                kelasList.clear()
+-                for(item: DataSnapshot in snapshot.getChildren()){
+-                    if(item.child("kelas").getValue().toString()!="null") {
+-                        kelasList.add(item.child("kelas").getValue().toString().uppercase())
+-                    }
+-                }
+-                dbRef.child(tahunSelected).removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-        kelasListAdapter = ArrayAdapter(this,
+-            R.layout.support_simple_spinner_dropdown_item,kelasList)
+-        kelas_dropdown.setAdapter(kelasListAdapter)
++        setKelasSelected("_")
++        kelasAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listRequired.listKelas())
++        kelas_dropdown.setAdapter(kelasAdapter)
++    }
++    fun refreshNamaDropdown(tahun:String,kelas:String){
++        nama_dropdown.setText("pilih nama")
++        setNamaSelected("_")
++        namaAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listRequired.listNama(tahun, kelas))
++        nama_dropdown.setAdapter(namaAdapter)
+     }
+-    fun setTugasDropdown(){
+-        //set tugas dropdown list
+-        tugasSelected="_"
+-        if (tahunSelected=="_" || kelasSelected=="_"){
+-            tugas_dropdown.setText("pilih bidang")
+-        }
+-        else{
+-            tugas_dropdown.setText("pilih bidang")
+-                FirebaseDatabase.getInstance()
+-                    .getReference("KalimatNilaiRaport")
+-                    .child(kelasSelected)
+-                    .addValueEventListener(object: ValueEventListener {
+-                    override fun onDataChange(snapshot: DataSnapshot) {
+-                        tugasList.clear()
+-                        for(item: DataSnapshot in snapshot.getChildren()){
+-                            var tmp = item.child("nama bidang").getValue().toString().replace("_",".")
+-
+-                            tugasList.add(tmp)
+-                        }
+-                        FirebaseDatabase.getInstance()
+-                            .getReference("KalimatNilaiRaport")
+-                            .child(kelasSelected).removeEventListener(this)
+-                    }
+-                    override fun onCancelled(error: DatabaseError) {
+-                        TODO("Not yet implemented")
+-                    }
+-
+-                })
+-
+-            tugasListAdapter = ArrayAdapter(this,
+-                R.layout.support_simple_spinner_dropdown_item,tugasList)
+-            tugas_dropdown.setAdapter(tugasListAdapter)
+-        }
+-    }
+-    fun setNamaDropdown(){
+-        namaSelected="_"
+-        namaList.clear()
+-        if(tahunSelected=="_" || kelasSelected=="_"){
+-            nama_dropdown.setText("pilih nama")
+-        }else{
+-            nama_dropdown.setText("pilih nama")
+-
+-            dbRef.child(tahunSelected)
+-                .child(kelasSelected)
+-                .addValueEventListener(object: ValueEventListener {
+-                    override fun onDataChange(snapshot: DataSnapshot) {
+-                        for (item: DataSnapshot in snapshot.getChildren()){
+-                            var tmp = item.child("nama").getValue().toString()
+-                            if (tmp!="null"){
+-                                namaList.add(item.child("nama").getValue().toString())
+-                            }
+-                        }
+-                        dbRef.child(tahunSelected)
+-                            .child(kelasSelected)
+-                            .removeEventListener(this)
+-                    }
+-                    override fun onCancelled(error: DatabaseError) {
+-                        TODO("Not yet implemented")
+-                    }
+-
+-                })
+-
+-            namaListAdapter = ArrayAdapter(this,
+-                R.layout.support_simple_spinner_dropdown_item,namaList)
+-            nama_dropdown.setAdapter(namaListAdapter)
+-        }
+-    }
+-    fun setNamaTugas(namatugas:String){
+-        namaTugas = namatugas
+-    }
+-    fun setRecentBintang(){
+-        dbRef
+-            .child(tahunSelected)
+-            .child(kelasSelected)
+-            .child(namaSelected)
+-            .addValueEventListener(object : ValueEventListener {
+-                override fun onDataChange(snapshot: DataSnapshot) {
+-                    if(snapshot.child("tugas").child(tugasSelected).child("nilai").getValue().toString()=="0"){
+-                        btg0_radio.isChecked=true
+-                    }
+-                    if(snapshot.child("tugas").child(tugasSelected).child("nilai").getValue().toString()=="1"){
+-                        btg1_radio.isChecked=true
+-                    }
+-                    if(snapshot.child("tugas").child(tugasSelected).child("nilai").getValue().toString()=="2"){
+-                        btg2_radio.isChecked=true
+-                    }
+-                    if(snapshot.child("tugas").child(tugasSelected).child("nilai").getValue().toString()=="3"){
+-                        btg3_radio.isChecked=true
+-                    }
+-                    if(snapshot.child("tugas").child(tugasSelected).child("nilai").getValue().toString()=="4"){
+-                        btg4_radio.isChecked=true
+-                    }
+-                }
+-                override fun onCancelled(error: DatabaseError) {
+-                    TODO("Not yet implemented")
+-                }
+-            })
+-    }
+-    fun setBintangSelected(bintang:String){
+-        bintangSelected=bintang
+-    }
+-
+-    //fungsi penting
+-    fun masukkanNamaTugasUser(ref:DatabaseReference,namaTugas:String,idTugas:String){
+-        ref.addValueEventListener(object: ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                for(item: DataSnapshot in snapshot.getChildren()){
+-                    var nama = item.child("nama").getValue().toString()
+-                    if(nama!="null"){
+-                        ref.child(nama).child("tugas").child(namaTugas).child("nama tugas").setValue(namaTugas)
+-                        ref.child(nama).child("tugas").child(namaTugas).child("nilai").setValue("0")
+-                    }
+-                }
+-
+-                //set preview
+-                ref.child("tugas kelas ini").child(idTugas).child("nama tugas").setValue(namaTugas)
+-                ref.child("tugas kelas ini").child(idTugas).child("id tugas").setValue(idTugas)
+-                ref.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-
+-        })
+-    }
+-    fun masukkanNamaBidang(ref:DatabaseReference, namaBidang:String, idTugas:String, kelas:String){
+-        ref.child(kelas).child(idTugas).child("nama bidang").setValue(namaBidang)
+-        ref.child(kelas).child(idTugas).child("btg1").setValue("-")
+-        ref.child(kelas).child(idTugas).child("btg2").setValue("-")
+-        ref.child(kelas).child(idTugas).child("btg3").setValue("-")
+-        ref.child(kelas).child(idTugas).child("btg4").setValue("-")
+-    }
+-    fun uploadNilai(){
+-        if(
+-            tahunSelected=="_"||
+-            kelasSelected=="_"||
+-            tugasSelected=="_"||
+-            namaSelected=="_"||
+-            bintangSelected=="_"
+-        ){
+-            Toast.makeText(applicationContext,"Harap Isi Semua Data Dengan Lengkap", Toast.LENGTH_SHORT).show()
+-        }else{
+-            dbRef.child(tahunSelected).child(kelasSelected).child(namaSelected).child("tugas").child(tugasSelected).child("nilai")
+-                .setValue(bintangSelected).addOnSuccessListener {
+-                    Toast.makeText(applicationContext,"Nilai Berhasil Diupload", Toast.LENGTH_SHORT).show()
+-                }.addOnFailureListener {
+-                    Toast.makeText(applicationContext,"Terjadi Kesalahan, Coba Lagi Nanti", Toast.LENGTH_SHORT).show()
+-                }
+-        }
+-    }
+-    fun setConnectedState(){
+-        val connectedRef = Firebase.database.getReference(".info/connected")
+-        connectedRef.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                val connected = snapshot.getValue(Boolean::class.java) ?: false
+-                if (connected) {
+-                    isConnected=true
+-                } else {
+-                    isConnected=false
+-                }
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-
+-            }
+-        })
++    fun refreshBidangDropdown(){
++        tugas_dropdown.setText("pilih bidang")
++        setBidangSelected("_")
++        bidangAdapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, listRequired.listBidang())
++        tugas_dropdown.setAdapter(bidangAdapter)
+     }
++    fun refreshRecentBintang(){
++        recentNilai="_"
++        setRecentNilai()
++        setNilaiSelected(getRecentNilai())
+ 
+-    //refresher
+-    fun refresherTugasDropdown(){
+-        val timerHandler: Handler = Handler()
+-
+-        tugas_dropdown.isClickable=false
+-        setTugasDropdown()
+-        val runnable:Runnable = Runnable{
+-            tugas_dropdown.isClickable=true
+-        }
+-        timerHandler.postDelayed(runnable,100)
+-    }
+-    fun refresherNamaDropdown(){
+-        //deklarasi refresher
+-        val timerHandler: Handler = Handler()
+-        val runnable:Runnable = Runnable{
+-            setNamaDropdown()
+-        }
+-        timerHandler.postDelayed(runnable,200)
+-    }
+-    fun refresherNilaiBintang(){
+         val handler = Handler()
+         val runnable = Runnable {
+-            setRecentBintang()
++            if(getRecentNilai()=="0"){
++                setNilaiSelected("0")
++                btg0_radio.setChecked(true)
++            }else if(getRecentNilai()=="1"){
++                setNilaiSelected("1")
++                btg1_radio.setChecked(true)
++            }else if(getRecentNilai()=="2"){
++                setNilaiSelected("2")
++                btg2_radio.setChecked(true)
++            }else if(getRecentNilai()=="3"){
++                setNilaiSelected("3")
++                btg3_radio.setChecked(true)
++            }else if(getRecentNilai()=="4"){
++                setNilaiSelected("4")
++                btg4_radio.setChecked(true)
++            }
+         }
+ 
+-        handler.postDelayed(runnable,200)
++        handler.postDelayed(runnable,500)
+     }
+ 
+-    //fungsi deklarasi
+-    private fun deklarasi(){
++    fun callDeklarasi(){
+         tahun_dropdown = findViewById(R.id.tahun_nilai_dropdown)
+         tugas_dropdown = findViewById(R.id.tugas_nilai_dropdown)
+         nama_dropdown = findViewById(R.id.nama_nilai_dropdown)
+         kelas_dropdown = findViewById(R.id.kelas_nilai_dropdown)
+-        tambahtugasbaru_btn = findViewById(R.id.addtambahtugas_btn)
+-        submit_button = findViewById(R.id.submitNilai_nilai_btn)
+         btg0_radio = findViewById(R.id.bintang_0)
+         btg1_radio = findViewById(R.id.bintang_1)
+         btg2_radio = findViewById(R.id.bintang_2)
+         btg3_radio = findViewById(R.id.bintang_3)
+         btg4_radio = findViewById(R.id.bintang_4)
++        submit_button = findViewById(R.id.submitNilai_nilai_btn)
++    }
++    fun setConnectedState(){
++        val connectedRef = Firebase.database.getReference(".info/connected")
++        connectedRef.addValueEventListener(object : ValueEventListener {
++            override fun onDataChange(snapshot: DataSnapshot) {
++                val connected = snapshot.getValue(Boolean::class.java) ?: false
++                if (connected) {
++                    isConnected=true
++                } else {
++                    isConnected=false
++                }
++            }
++            override fun onCancelled(error: DatabaseError) {
+ 
+-        dbRef = FirebaseDatabase.getInstance().getReference("DB")
+-        tahunList = ArrayList()
+-        kelasList = ArrayList()
+-        tugasList = ArrayList()
+-        namaList = ArrayList()
+-        tugasBaru_uploaded = ArrayList()
+-        tugasBaru_uploaded.add(true)
++            }
++        })
++    }
++    fun uploadData(tahun:String, kelas:String, nama:String, bidang:String, nilai:String){
++        uploadData.nilai(tahun, kelas, nama, bidang, nilai)
+     }
+ 
+-    //resetter
+-    fun resetTahunSelecter(){
+-        tahunSelected="_"
++    //setter dan getter
++    fun setTahunSelected(item:String){
++        tahunSelected=item
+     }
+-    fun resetKelasSelected(){
+-        kelasSelected="_"
++    fun setKelasSelected(item:String){
++        kelasSelected=item
+     }
+-    fun resetTugasSelected(){
+-        tugasSelected="_"
++    fun setNamaSelected(item:String){
++        namaSelected=item
+     }
+-    fun resetNamaSelected(){
+-        namaSelected="_"
++    fun setBidangSelected(item:String){
++        bidangSelected=item
++    }
++    fun setNilaiSelected(nilai:String){
++        nilaiSelected=nilai
++    }
++    fun setRecentNilai(){
++        recentNilai="_"
++        val ref = dbRef.refMain().child(getTahunSelected()).child(getKelasSelected()).child(getNamaSelected()).child("tugas").child(getBidangSelected())
++
++        ref.addValueEventListener(object:ValueEventListener{
++            override fun onDataChange(snapshot: DataSnapshot) {
++                recentNilai = snapshot.child("nilai").getValue().toString()
++                Log.e("ASDASD",recentNilai)
++                ref.removeEventListener(this)
++            }
++            override fun onCancelled(error: DatabaseError) {
++                TODO("Not yet implemented")
++            }
++        })
++    }
++
++    fun getTahunSelected():String{
++        return tahunSelected
++    }
++    fun getKelasSelected():String{
++        return kelasSelected
++    }
++    fun getNamaSelected():String{
++        return namaSelected
++    }
++    fun getBidangSelected():String{
++        return bidangSelected
++    }
++    fun getNilaiSelected():String{
++        return nilaiSelected
++    }
++    fun getRecentNilai():String{
++        return recentNilai
+     }
+ }
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1642592227809)
++++ b/.idea/vcs.xml	(date 1642592227809)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: app/src/main/java/com/example/raportibukrevisi/LihatData.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/raportibukrevisi/LihatData.kt b/app/src/main/java/com/example/raportibukrevisi/LihatData.kt
+--- a/app/src/main/java/com/example/raportibukrevisi/LihatData.kt	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ b/app/src/main/java/com/example/raportibukrevisi/LihatData.kt	(date 1642648386812)
+@@ -24,15 +24,13 @@
+     private var allTugasSelected:String=""//biar kosong karena akan ditambah tanda "-" saat pertama kali diisi
+ 
+     //list dan adapter preview
+-    private lateinit var tahunList:ArrayList<String>
+     private lateinit var tahunAdapter: ArrayAdapter<String>
+-    private lateinit var kelasList:ArrayList<String>
+     private lateinit var kelasAdapter: ArrayAdapter<String>
+-    private lateinit var namaList:ArrayList<String>
+     private lateinit var namaAdapter: ArrayAdapter<String>
+ 
+     //reference
+-    private lateinit var dbRefMain: DatabaseReference
++    private var listRequired = ListRequired()
++    private var dbRef = DbReference()
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+@@ -122,11 +120,6 @@
+         kelas_scroll = findViewById(R.id.kelas_scroll)
+         nomorinduk_scroll = findViewById(R.id.nomorinduk_scroll)
+         tugas_scroll = findViewById(R.id.namatugas_scroll)
+-
+-        dbRefMain = FirebaseDatabase.getInstance().getReference("DB")
+-        tahunList=ArrayList()
+-        kelasList=ArrayList()
+-        namaList= ArrayList()
+     }
+ 
+     //fungsi khusus
+@@ -148,61 +141,21 @@
+ 
+     //setter
+     fun setTahunPreview(){
+-        dbRefMain.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                for(item: DataSnapshot in snapshot.getChildren()){
+-                    tahunList.add(item.child("tahun").getValue().toString().replace("_","-"))
+-                }
+-                dbRefMain.removeEventListener(this)
+-            }
+-
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+         tahunAdapter = ArrayAdapter(this,
+-            R.layout.support_simple_spinner_dropdown_item, tahunList)
++            R.layout.support_simple_spinner_dropdown_item, listRequired.listTahun())
+         tahun_lihatdata_dropdown.setAdapter(tahunAdapter)
+     }
+     fun setKelasPreview(){
+-        kelasList.add("A")
+-        kelasList.add("B")
+-
+         kelasAdapter = ArrayAdapter(this,
+-            R.layout.support_simple_spinner_dropdown_item, kelasList)
++            R.layout.support_simple_spinner_dropdown_item, listRequired.listKelas())
+         kelas_lihatdata_dropdown.setAdapter(kelasAdapter)
+     }
+     fun setNamaDropdown(){
+-        namaList.clear()
+-        if(tahunSelected=="_" || kelasSelected=="_"){
+-            nama_lihatdata_dropdown.setText("pilih nama")
+-        }else{
+-            nama_lihatdata_dropdown.setText("pilih nama")
+-
+-            dbRefMain.child(tahunSelected)
+-                .child(kelasSelected).addValueEventListener(object: ValueEventListener {
+-                    override fun onDataChange(snapshot: DataSnapshot) {
+-                        for (item: DataSnapshot in snapshot.getChildren()){
+-                            var tmp = item.child("nama").getValue().toString()
+-                            if (tmp!="null"){
+-                                namaList.add(item.child("nama").getValue().toString())
+-                            }
+-                        }
+-                        dbRefMain.child(tahunSelected)
+-                            .child(kelasSelected).removeEventListener(this)
+-                    }
+-                    override fun onCancelled(error: DatabaseError) {
+-                        TODO("Not yet implemented")
+-                    }
+-
+-                })
+-
+             namaAdapter = ArrayAdapter(this,
+-                R.layout.support_simple_spinner_dropdown_item,namaList)
++                R.layout.support_simple_spinner_dropdown_item,listRequired.listNama(getTahunSelected(),getKelasSelected()))
+             nama_lihatdata_dropdown.setAdapter(namaAdapter)
+         }
+-    }
++
+     fun setTahunSelected(tahun:String){
+         tahunSelected=tahun
+     }
+@@ -213,24 +166,21 @@
+         namaSelected=nama
+     }
+     fun setAllTugasSelected(){
+-        dbRefMain.child(getTahunSelected())
+-            .child(getKelasSelected())
+-            .child(getNamaSelected())
+-            .child("tugas").addValueEventListener(object : ValueEventListener {
++
++        val ref = dbRef.refMain().child(getTahunSelected()).child(getKelasSelected()).child(getNamaSelected()).child("tugas")
++
++        ref.addValueEventListener(object : ValueEventListener {
+                 override fun onDataChange(snapshot: DataSnapshot) {
+                     allTugasSelected=""
+                     for(item: DataSnapshot in snapshot.getChildren()){
+-                        var tmp_namatugas = item.child("nama tugas").getValue().toString().replace("_",". ")
++                        var tmp_namatugas = item.child("nama bidang").getValue().toString().replace("_",". ")
+                         var tmp_nilai = item.child("nilai").getValue().toString()
+ 
+                         allTugasSelected=allTugasSelected+tmp_namatugas+"\n"
+                         allTugasSelected=allTugasSelected+"\t\tNILAI : "+tmp_nilai+"\n\n"
+                     }
+ 
+-                    dbRefMain.child(getTahunSelected())
+-                        .child(getKelasSelected())
+-                        .child(getNamaSelected())
+-                        .child("tugas").removeEventListener(this)
++                    ref.removeEventListener(this)
+                 }
+                 override fun onCancelled(error: DatabaseError) {
+                     TODO("Not yet implemented")
+@@ -239,17 +189,13 @@
+             })
+     }
+     fun setNomorIndukSelected(){
+-        dbRefMain
+-            .child(tahunSelected)
+-            .child(kelasSelected)
+-            .child(namaSelected).addValueEventListener(object: ValueEventListener {
++        val ref =dbRef.refMain().child(getTahunSelected()).child(getKelasSelected()).child(getNamaSelected())
++
++        ref.addValueEventListener(object: ValueEventListener {
+                 override fun onDataChange(snapshot: DataSnapshot) {
+                     nomorIndukSelected=snapshot.child("nomor induk").getValue().toString()
+ 
+-                    dbRefMain
+-                        .child(tahunSelected)
+-                        .child(kelasSelected)
+-                        .child(namaSelected).removeEventListener(this)
++                    ref.removeEventListener(this)
+                 }
+                 override fun onCancelled(error: DatabaseError) {
+                     TODO("Not yet implemented")
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ b/.idea/misc.xml	(date 1642677942700)
+@@ -27,6 +27,7 @@
+         <entry key="..\:/Projek Koding/Android Studio/RaportIbukRevisi/app/src/main/res/drawable/lightgray_bg.xml" value="0.2890625" />
+         <entry key="..\:/Projek Koding/Android Studio/RaportIbukRevisi/app/src/main/res/drawable/midgray_bg.xml" value="0.2890625" />
+         <entry key="..\:/Projek Koding/Android Studio/RaportIbukRevisi/app/src/main/res/drawable/recycler_custom.xml" value="0.2890625" />
++        <entry key="..\:/Projek Koding/Android Studio/RaportIbukRevisi/app/src/main/res/layout/export_activity.xml" value="0.25" />
+         <entry key="..\:/Projek Koding/Android Studio/RaportIbukRevisi/app/src/main/res/layout/export_raport.xml" value="0.33" />
+         <entry key="..\:/Projek Koding/Android Studio/RaportIbukRevisi/app/src/main/res/layout/export_raport_baru.xml" value="0.13272543059777103" />
+         <entry key="..\:/Projek Koding/Android Studio/RaportIbukRevisi/app/src/main/res/layout/hapusmurid_activity.xml" value="0.22192028985507245" />
+Index: app/src/main/java/com/example/raportibukrevisi/TambahMurid.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/raportibukrevisi/TambahMurid.kt b/app/src/main/java/com/example/raportibukrevisi/TambahMurid.kt
+--- a/app/src/main/java/com/example/raportibukrevisi/TambahMurid.kt	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ b/app/src/main/java/com/example/raportibukrevisi/TambahMurid.kt	(date 1642637072060)
+@@ -14,18 +14,20 @@
+ import com.google.firebase.ktx.Firebase
+ 
+ class TambahMurid:AppCompatActivity() {
+-    lateinit var tahunAjaran1: TextInputEditText
+-    lateinit var tahunAjaran2: TextInputEditText
+-    lateinit var namaLengkap: TextInputEditText
+-    lateinit var nomorInduk: TextInputEditText
+-    lateinit var tambah_btn: Button
+-    lateinit var kelas: TextInputEditText
+-    lateinit var hapus_kelas: Button
+-    lateinit var hapus_induk: Button
+-    lateinit var hapus_nama: Button
++    private lateinit var tahunAjaran1: TextInputEditText
++    private lateinit var tahunAjaran2: TextInputEditText
++    private lateinit var namaLengkap: TextInputEditText
++    private lateinit var nomorInduk: TextInputEditText
++    private lateinit var tambah_btn: Button
++    private lateinit var kelas: TextInputEditText
++    private lateinit var hapus_kelas: Button
++    private lateinit var hapus_induk: Button
++    private lateinit var hapus_nama: Button
+ 
+     private var isConnected=false
+ 
++    private var dbReference = DbReference()
++
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.tambahmurid_activity)
+@@ -34,107 +36,29 @@
+         setDeklarasi()
+         setConnectedState()
+ 
+-        //setDatabase saat tombol tambah diklik
+         tambah_btn.setOnClickListener {
+-            if(tahunAjaran1.getText().toString()=="" ||
+-                tahunAjaran2.getText().toString()=="" ||
+-                nomorInduk.getText().toString()=="" ||
+-                namaLengkap.getText().toString()=="" ||
+-                kelas.getText().toString()=="")
+-            {
+-                Toast.makeText(applicationContext,"Harap isi semua form", Toast.LENGTH_SHORT).show()
+-            }
+-            else{
+-                if(isConnected){
+-                    if(
+-                        tahunAjaran2.getText().toString().trim().toInt()-tahunAjaran1.getText().toString().trim().toInt()==1
+-                    ){
+-                        if(
+-                            kelas.getText().toString()=="A"||
+-                            kelas.getText().toString()=="a"||
+-                            kelas.getText().toString()=="B"||
+-                            kelas.getText().toString()=="b"
+-                        ){
+-                            setNewDatabase(
+-                                tahunAjaran1.getText().toString().trim(),
+-                                tahunAjaran2.getText().toString().trim(),
+-                                namaLengkap.getText().toString().trim(),
+-                                nomorInduk.getText().toString().trim(),
+-                                kelas.getText().toString().trim().lowercase()
+-                            )
+-                            Toast.makeText(applicationContext,"Data Berhasil Dikirim", Toast.LENGTH_LONG).show()
+-                        }else{
+-                            Toast.makeText(applicationContext,"Gagal, Pastikan Masukkan Kelas A atau B",
+-                                Toast.LENGTH_SHORT).show()
+-                        }
+-
+-                    }else{
+-                        Toast.makeText(applicationContext,"Gagal, Cek Kembali Tahun Ajaran", Toast.LENGTH_SHORT).show()
+-                    }
+-                }
+-                else{
+-                    Toast.makeText(applicationContext,"Harap Pastikan Koneksi Anda Baik", Toast.LENGTH_SHORT).show()
+-                }
+-            }
+-        }
++            if(
++                tahunAjaran2.text.toString()!=""
++                && tahunAjaran1.text.toString()!=""
++                && namaLengkap.text.toString()!=""
++                && nomorInduk.text.toString()!=""
++                && kelas.text.toString()!=""
++                && (kelas.text.toString() == "A" || kelas.text.toString()=="B" || kelas.text.toString() == "a" || kelas.text.toString()=="b")
++                && (tahunAjaran2.text.toString().toInt() - tahunAjaran1.text.toString().toInt()==1)
++            ) {
++                if(isConnected) {
++                    uploadDataMurid()
++                    Toast.makeText(applicationContext, "BERHASIL", Toast.LENGTH_SHORT).show()
++                }else{
++                    Toast.makeText(applicationContext,"Masalah Koneksi", Toast.LENGTH_SHORT).show()
++                }
++            }
++            else{
++                Toast.makeText(applicationContext,"CEK KEMBALI DATA ANDA", Toast.LENGTH_SHORT).show()
++            }
++        }
++    }
+ 
+-        //setting hapus
+-        hapus_induk.setOnClickListener {
+-            nomorInduk.setText("")
+-        }
+-        hapus_nama.setOnClickListener {
+-            namaLengkap.setText("")
+-        }
+-        hapus_kelas.setOnClickListener {
+-            kelas.setText("")
+-        }
+-
+-    }
+-
+-    fun setNewDatabase(tahunAjaran1:String,tahunAjaran2:String,namaLengkap:String,nomorInduk:String,kelas:String){
+-        val tahunAjaran_temp = tahunAjaran1+"_"+tahunAjaran2
+-
+-        val dbRef = FirebaseDatabase.getInstance().getReference("DB").child(tahunAjaran_temp)
+-
+-        //masukkan nomor induk, nama, tahun, kelas
+-        val dbRefParent = dbRef.child(kelas).child(namaLengkap)
+-
+-        //informasi child
+-        dbRef.child("tahun").setValue(tahunAjaran_temp)
+-        dbRef.child(kelas).child("kelas").setValue(kelas)
+-
+-        //data
+-        dbRefParent.child("nama").setValue(namaLengkap)
+-        dbRefParent.child("nomor induk").setValue(nomorInduk)
+-        dbRefParent.child("tahun").setValue(tahunAjaran_temp)
+-        dbRefParent.child("kelas").setValue(kelas)
+-        dbRefParent.child("kelas").setValue(kelas)
+-
+-        //masukkan tugas baru
+-        FirebaseDatabase
+-            .getInstance()
+-            .getReference("KalimatNilaiRaport")
+-            .child("a")
+-            .addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                for(item: DataSnapshot in snapshot.getChildren()){
+-                    var namatugas_tmp = item.child("nama bidang").getValue().toString()
+-
+-                    //tambahkan item ke user
+-                    dbRefParent.child("tugas").child(namatugas_tmp).child("nama tugas").setValue(namatugas_tmp)
+-                    dbRefParent.child("tugas").child(namatugas_tmp).child("nilai").setValue("0")
+-                }
+-
+-                FirebaseDatabase
+-                    .getInstance()
+-                    .getReference("KalimatNilaiRaport")
+-                    .child("a").removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-    }
+     fun setDeklarasi(){
+         tahunAjaran1 = findViewById(R.id.tahun1_tambah_input)
+         tahunAjaran2 = findViewById(R.id.tahun2_tambah_input)
+@@ -159,8 +83,55 @@
+             }
+             override fun onCancelled(error: DatabaseError) {
+ 
++            }
++        })
++    }
++    fun uploadDataMurid(){
++        var tahunAjaran1 = tahunAjaran1.text.toString()
++        var tahunAjaran2 = tahunAjaran2.text.toString()
++        var kelas = kelas.text.toString()
++        kelas = kelas.lowercase()
++        var nomorInduk = nomorInduk.text.toString()
++        var nama = namaLengkap.text.toString()
++        var tahunTmp = tahunAjaran1+"_"+tahunAjaran2
++
++        //masukkan informasi child
++        dbReference.refMain().child(tahunTmp).child("tahun").setValue(tahunTmp)
++        dbReference.refMain().child(tahunTmp).child(kelas).child("kelas").setValue(kelas)
++
++        //masukkan identitas
++        dbReference.refMain().child(tahunTmp).child(kelas).child(nama).child("nama").setValue(nama)
++        dbReference.refMain().child(tahunTmp).child(kelas).child(nama).child("kelas").setValue(kelas)
++        dbReference.refMain().child(tahunTmp).child(kelas).child(nama).child("nomor induk").setValue(nomorInduk)
++        dbReference.refMain().child(tahunTmp).child(kelas).child(nama).child("tahun").setValue(tahunTmp)
++
++        //masukkan tugas yang sudah ada ke dalam child murid
++        dbReference.refKalimat().child("a").addValueEventListener(object : ValueEventListener{
++            override fun onDataChange(snapshot: DataSnapshot) {
++                for(item:DataSnapshot in snapshot.children){
++                    dbReference.refMain()
++                        .child(tahunTmp)
++                        .child(kelas)
++                        .child(nama)
++                        .child("tugas")
++                        .child(item.child("nama bidang").getValue().toString())
++                        .child("nama bidang")
++                        .setValue(item.child("nama bidang").getValue().toString())
++                    dbReference.refMain()
++                        .child(tahunTmp)
++                        .child(kelas)
++                        .child(nama)
++                        .child("tugas")
++                        .child(item.child("nama bidang").getValue().toString())
++                        .child("nilai")
++                        .setValue("0")
++
++                    dbReference.refKalimat().child("a").removeEventListener(this)
++                }
++            }
++            override fun onCancelled(error: DatabaseError) {
++                TODO("Not yet implemented")
+             }
+         })
+     }
+-}
+-
++}
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ b/app/src/main/AndroidManifest.xml	(date 1642678435877)
+@@ -26,10 +26,9 @@
+         <activity android:name=".TambahNilai"/>
+         <activity android:name=".TambahMurid"/>
+         <activity android:name=".LihatData"/>
+-        <activity android:name=".PreHapus"/>
+         <activity android:name=".HapusMurid"/>
+-        <activity android:name=".HapusTugas"/>
+         <activity android:name=".SettingKalimat"/>
++        <activity android:name=".ExportActivity"/>
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/java/com/example/raportibukrevisi/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/raportibukrevisi/MainActivity.kt b/app/src/main/java/com/example/raportibukrevisi/MainActivity.kt
+--- a/app/src/main/java/com/example/raportibukrevisi/MainActivity.kt	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ b/app/src/main/java/com/example/raportibukrevisi/MainActivity.kt	(date 1642684565767)
+@@ -3,6 +3,7 @@
+ import android.content.Intent
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
++import android.util.Log
+ import android.view.View
+ import android.widget.*
+ import androidx.appcompat.app.AlertDialog
+@@ -17,209 +18,65 @@
+ 
+ 
+ class MainActivity : AppCompatActivity() {
+-    private lateinit var tambahmurid_btn:Button
+-    private lateinit var tambahnilai_btn:Button
+-    private lateinit var lihatdata_btn:Button
+-    private lateinit var hapusdata_btn:Button
+-    private lateinit var exporttugas_btn:FloatingActionButton
+-    private lateinit var setting_btn:FloatingActionButton
+-    private var exportDocument=ExportDocument()
+-    private var dbRef = FirebaseDatabase.getInstance().getReference("DB")
+-
+-    //preview dan list
+-    private lateinit var tahunList:ArrayList<String>
+-    private lateinit var tahunListAdapter:ArrayAdapter<String>
+-    private lateinit var kelasList:ArrayList<String>
+-    private lateinit var kelasListAdapter:ArrayAdapter<String>
+-
+-    //selected item
+-    private var tahunExportSelected="_"
+-    private var kelasExportSelected="_"
+-
+-    private lateinit var inputKepsekDialog:TextInputEditText
+-    private lateinit var inputTanggalDialog:TextInputEditText
+-    private lateinit var btnCloseDialog:Button
+-    private lateinit var btnExportDialog:Button
+-    private lateinit var kelasDropdown:AutoCompleteTextView
+-    private lateinit var tahunDropdown:AutoCompleteTextView
+-
++    private lateinit var tambahmurid_btn: Button
++    private lateinit var tambahnilai_btn: Button
++    private lateinit var lihatdata_btn: Button
++    private lateinit var hapusdata_btn: Button
++    private lateinit var exporttugas_btn: FloatingActionButton
++    private lateinit var setting_btn: FloatingActionButton
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.main_activity)
+ 
+         callDeklarasi()
+-        ActivityCompat.requestPermissions(this,exportDocument.permission(),0)
+-
+-        //permission
+-        System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory","com.fasterxml.aalto.stax.InputFactoryImpl")
+-        System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory","com.fasterxml.aalto.stax.OutputFactoryImpl")
+-        System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory","com.fasterxml.aalto.stax.EventFactoryImpl")
++        ActivityCompat.requestPermissions(this, permission(), 0)
++        callSetProperty()
+ 
+         tambahmurid_btn.setOnClickListener {
+-            startActivity(Intent(this,TambahMurid::class.java))
++            startActivity(Intent(this, TambahMurid::class.java))
+         }
+         tambahnilai_btn.setOnClickListener {
+-            startActivity(Intent(this,TambahNilai::class.java))
++            startActivity(Intent(this, TambahNilai::class.java))
+         }
+         lihatdata_btn.setOnClickListener {
+-            startActivity(Intent(this,LihatData::class.java))
++            startActivity(Intent(this, LihatData::class.java))
+         }
+         hapusdata_btn.setOnClickListener {
+-            startActivity(Intent(this,PreHapus::class.java))
++            startActivity(Intent(this, HapusMurid::class.java))
+         }
+         exporttugas_btn.setOnClickListener {
+-            openDialogExport()
++            startActivity(Intent(this,ExportActivity::class.java))
+         }
+         setting_btn.setOnClickListener {
+-            startActivity(Intent(this,SettingKalimat::class.java))
++            startActivity(Intent(this, SettingKalimat::class.java))
+         }
+     }
+ 
+-    fun callDeklarasi(){
++    fun callDeklarasi() {
+         tambahmurid_btn = findViewById(R.id.btnTambahMurid)
+         tambahnilai_btn = findViewById(R.id.btnTambahNilai)
+         lihatdata_btn = findViewById(R.id.btnLihatMurid)
+         hapusdata_btn = findViewById(R.id.btnHapusMurid)
+         exporttugas_btn = findViewById(R.id.export_button)
+         setting_btn = findViewById(R.id.setting_button)
+-        tahunList= ArrayList()
+-        kelasList= ArrayList()
+     }
+-    fun openDialogExport(){
+-        val myLayoutInflater = View.inflate(this,R.layout.export_raport,null)
+-        val builder = AlertDialog.Builder(this)
+-        builder.setView(myLayoutInflater)
+-
+-        val dialog = builder.create()
+-        dialog.show()
+-        dialog.setCancelable(false)
+-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+-
+-        //deklarasi
+-        inputKepsekDialog = myLayoutInflater.findViewById<TextInputEditText>(R.id.kepsek_exporttugas)
+-        inputTanggalDialog = myLayoutInflater.findViewById<TextInputEditText>(R.id.tanggal_exportraport)
+-        btnCloseDialog = myLayoutInflater.findViewById<Button>(R.id.close_button_exportraport)
+-        btnExportDialog = myLayoutInflater.findViewById<Button>(R.id.export_exportraport_btn)
+-        kelasDropdown = myLayoutInflater.findViewById<AutoCompleteTextView>(R.id.kelas_export_dropdown)
+-        tahunDropdown = myLayoutInflater.findViewById<AutoCompleteTextView>(R.id.tahun_export_dropdown)
+-
+-        setTahunPreview()
+-
+-        //kondisi saat tahun dipilih
+-        tahunDropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+-            override fun onItemClick(
+-                parent: AdapterView<*>?,
+-                view: View?,
+-                position: Int,
+-                id: Long
+-            ) {
+-                setTahunSelected(parent?.getItemAtPosition(position).toString().replace("-","_"))
+-                setKelasPreview(kelasDropdown)
+-            }
+-
+-        })
+-        kelasDropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener{
+-            override fun onItemClick(
+-                parent: AdapterView<*>?,
+-                view: View?,
+-                position: Int,
+-                id: Long
+-            ) {
+-                setKelasSelected(parent?.getItemAtPosition(position).toString().lowercase())
+-            }
+-
+-        })
+-
+-        btnCloseDialog.setOnClickListener {
+-            dialog.dismiss()
+-        }
+-        btnExportDialog.setOnClickListener {
+-            val ref = FirebaseDatabase.getInstance().getReference("DB").child(getTahunSelected()).child(getKelasSelected())
+-            var namaTmp=""
+-            var nomorIndukTmp=""
+-
+-            ref.addValueEventListener(object:ValueEventListener{
+-                override fun onDataChange(snapshot: DataSnapshot) {
+-                    for(item:DataSnapshot in snapshot.getChildren()){
+-                        //mengambil nama dan nomor induk untuk ditampilkan di depan
+-                        namaTmp = item.child("nama").getValue().toString()
+-                        nomorIndukTmp = item.child("nomor induk").getValue().toString()
+-
+-                        if(namaTmp!="null"){
+-                            exportDocument.export(
+-                                getTahunSelected()
+-                                ,getKelasSelected()
+-                                ,namaTmp
+-                                ,nomorIndukTmp
+-                                ,inputTanggalDialog.getText().toString()
+-                                ,inputKepsekDialog.getText().toString())
+-
+-                            Toast.makeText(applicationContext,"BERHASIL : Raport "+namaTmp+" Telah disimpan", Toast.LENGTH_SHORT).show()
+-                        }
+-                    }
+-                    ref.removeEventListener(this)
+-                }
+-                override fun onCancelled(error: DatabaseError) {
+-                    TODO("Not yet implemented")
+-                }
+-            })
+-        }
+-    }
+-
+-    //fungsi khusus
+-    fun setTahunPreview(){
+-        dbRef.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                tahunList.clear()
+-                for(item: DataSnapshot in snapshot.getChildren()){
+-                    tahunList.add(item.child("tahun").getValue().toString().replace("_","-"))
+-                }
+-                dbRef.removeEventListener(this)
+-            }
+-
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        tahunListAdapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, tahunList)
+-        tahunDropdown.setAdapter(tahunListAdapter)
+-    }
+-    fun setKelasPreview(dropdown:AutoCompleteTextView){
+-        dropdown.setText("pilih kelas")
+-        dbRef.child(tahunExportSelected).addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                kelasList.clear()
+-                for(item: DataSnapshot in snapshot.getChildren()){
+-                    if(item.child("kelas").getValue().toString()!="null") {
+-                        kelasList.add(item.child("kelas").getValue().toString().uppercase())
+-                    }
+-                }
+-                dbRef.child(tahunExportSelected).removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-        kelasListAdapter = ArrayAdapter(this,
+-            R.layout.support_simple_spinner_dropdown_item,kelasList)
+-        dropdown.setAdapter(kelasListAdapter)
+-    }
+-
+-    //setter
+-    fun setTahunSelected(tahun:String){
+-        tahunExportSelected=tahun
+-    }
+-    fun setKelasSelected(kelas:String){
+-        kelasExportSelected=kelas
+-    }
+-
+-    //getter
+-    fun getTahunSelected():String{
+-        return tahunExportSelected
+-    }
+-    fun getKelasSelected():String{
+-        return kelasExportSelected
+-    }
+-}
+\ No newline at end of file
++    fun callSetProperty(){
++        //permission
++        System.setProperty(
++            "org.apache.poi.javax.xml.stream.XMLInputFactory",
++            "com.fasterxml.aalto.stax.InputFactoryImpl"
++        )
++        System.setProperty(
++            "org.apache.poi.javax.xml.stream.XMLOutputFactory",
++            "com.fasterxml.aalto.stax.OutputFactoryImpl"
++        )
++        System.setProperty(
++            "org.apache.poi.javax.xml.stream.XMLEventFactory",
++            "com.fasterxml.aalto.stax.EventFactoryImpl"
++        )
++    }
++    fun permission():Array<String>{
++        return arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
++    }
++}
+Index: app/src/main/java/com/example/raportibukrevisi/SettingKalimat.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/raportibukrevisi/SettingKalimat.kt b/app/src/main/java/com/example/raportibukrevisi/SettingKalimat.kt
+--- a/app/src/main/java/com/example/raportibukrevisi/SettingKalimat.kt	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ b/app/src/main/java/com/example/raportibukrevisi/SettingKalimat.kt	(date 1642673777236)
+@@ -1,18 +1,14 @@
+ package com.example.raportibukrevisi
+ 
++import android.media.audiofx.EnvironmentalReverb
+ import android.os.Bundle
+-import android.util.Log
++import android.os.Environment
+ import android.view.View
+-import android.widget.AdapterView
+-import android.widget.ArrayAdapter
+-import android.widget.AutoCompleteTextView
+-import android.widget.Button
++import android.widget.*
+ import androidx.appcompat.app.AppCompatActivity
+ import com.google.android.material.textfield.TextInputEditText
+-import com.google.firebase.database.DataSnapshot
+-import com.google.firebase.database.DatabaseError
+-import com.google.firebase.database.FirebaseDatabase
+-import com.google.firebase.database.ValueEventListener
++import java.io.File
++import java.io.FileOutputStream
+ 
+ class SettingKalimat:AppCompatActivity() {
+     private lateinit var kelasDropdown:AutoCompleteTextView
+@@ -23,14 +19,16 @@
+     private lateinit var btg4Input:TextInputEditText
+     private lateinit var setKalimatBtn:Button
+ 
++    private lateinit var saveFolder:File
++
+     //list dan adapter
+-    private var bidangList=ArrayList<String>()
++    private var listReq = ListRequired()
++    private lateinit var kelasAdapter:ArrayAdapter<String>
+     private lateinit var bidangAdapter:ArrayAdapter<String>
+ 
+     //bidang selected
+     private var bidangSelected="_"
+     private var kelasSelected="_"
+-    private var idBidangSelected="_"
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+@@ -39,6 +37,7 @@
+         callDeklarasi()
+         callBidangPreview()
+         callKelasPreview()
++        setSaveFolder()
+ 
+         //click listener dropdown
+         kelasDropdown.setOnItemClickListener(object:AdapterView.OnItemClickListener{
+@@ -49,10 +48,13 @@
+                 id: Long
+             ) {
+                 setKelasSelected(parent?.getItemAtPosition(position).toString().lowercase())
++                if(getBidangSelected()!="_"){
++                    loadFile()
++                }
+             }
+ 
+         })
+-        bidangDropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener{
++        bidangDropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+             override fun onItemClick(
+                 parent: AdapterView<*>?,
+                 view: View?,
+@@ -60,25 +62,17 @@
+                 id: Long
+             ) {
+                 setBidangSelected(parent?.getItemAtPosition(position).toString())
+-                setIdBidangSelected(getBidangSelected())
+-                updateRecentKalimat(getKelasSelected(),getIdBidangSelected())
++                if(getKelasSelected()!="_"){
++                    loadFile()
++                }
+             }
+ 
+         })
+ 
+         //jika klik set kalimat
+         setKalimatBtn.setOnClickListener {
+-            //upload kalimat btg 1
+-            uploadKalimat(getKelasSelected(),getIdBidangSelected(),btg1Input,"btg1")
+-
+-            //upload kalimat btg 2
+-            uploadKalimat(getKelasSelected(),getIdBidangSelected(),btg2Input,"btg2")
+-
+-            //upload kalimat btg 3
+-            uploadKalimat(getKelasSelected(),getIdBidangSelected(),btg3Input,"btg3")
+-
+-            //upload kalimat btg 4
+-            uploadKalimat(getKelasSelected(),getIdBidangSelected(),btg4Input,"btg4")
++            saveFile()
++            Toast.makeText(applicationContext,"BERHASIL DISIMPAN",Toast.LENGTH_SHORT).show()
+         }
+     }
+ 
+@@ -93,62 +87,95 @@
+     }
+     fun callKelasPreview(){
+         setKelasSelected("_")
+-        var kelasList = ArrayList<String>()
+-        kelasList.add("A")
+-        kelasList.add("B")
+-
+-        var kelasAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,kelasList)
++        kelasAdapter= ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listKelas())
+         kelasDropdown.setAdapter(kelasAdapter)
+-
+     }
+     fun callBidangPreview(){
+-        FirebaseDatabase.getInstance()
+-            .getReference("KalimatNilaiRaport")
+-            .child("a")
+-            .addValueEventListener(object : ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                bidangList.clear()
+-                for(item:DataSnapshot in snapshot.getChildren()){
+-                    bidangList.add(item.child("nama bidang").getValue().toString().replace("_","."))
+-                }
+-
+-                //remove
+-                FirebaseDatabase.getInstance()
+-                    .getReference("KalimatNilaiRaport")
+-                    .child("a").removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-        bidangAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,bidangList)
++        setBidangSelected("_")
++        bidangAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listBidang())
+         bidangDropdown.setAdapter(bidangAdapter)
+     }
+-    fun updateRecentKalimat(kelas:String,id:String){
+-        val ref = FirebaseDatabase.getInstance().getReference("KalimatNilaiRaport").child(kelas).child(id)
++    fun loadFile(){
++        val fileBtg1 = File(getSaveFolder(),"/"+namaFile("btg1")+".txt")
++        val fileBtg2 = File(getSaveFolder(),"/"+namaFile("btg2")+".txt")
++        val fileBtg3 = File(getSaveFolder(),"/"+namaFile("btg3")+".txt")
++        val fileBtg4 = File(getSaveFolder(),"/"+namaFile("btg4")+".txt")
+ 
+-        ref.addValueEventListener(object:ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                btg1Input.setText(snapshot.child("btg1").getValue().toString())
+-                btg2Input.setText(snapshot.child("btg2").getValue().toString())
+-                btg3Input.setText(snapshot.child("btg3").getValue().toString())
+-                btg4Input.setText(snapshot.child("btg4").getValue().toString())
++        if(fileBtg1.exists()){
++            val br = fileBtg1.bufferedReader()
++            val txtTmp = br.use { it.readText() }
++            btg1Input.setText(txtTmp)
++        }
++        else{
++            btg1Input.setText("BELUM DIATUR")
++        }
+ 
+-                ref.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-    }
+-    fun uploadKalimat(kelas:String,id: String,btgInput:TextInputEditText,btgName:String){
++        if(fileBtg2.exists()){
++            val br = fileBtg2.bufferedReader()
++            val txtTmp = br.use { it.readText() }
++            btg2Input.setText(txtTmp)
++        }
++        else{
++            btg2Input.setText("BELUM DIATUR")
++        }
++
++        if(fileBtg3.exists()){
++            val br = fileBtg3.bufferedReader()
++            val txtTmp = br.use { it.readText() }
++            btg3Input.setText(txtTmp)
++        }
++        else{
++            btg3Input.setText("BELUM DIATUR")
++        }
+ 
+-        FirebaseDatabase.getInstance()
+-            .getReference("KalimatNilaiRaport")
+-            .child(kelas)
+-            .child(id)
+-            .child(btgName)
+-            .setValue(btgInput.getText().toString())
++        if(fileBtg4.exists()){
++            val br = fileBtg4.bufferedReader()
++            val txtTmp = br.use { it.readText() }
++            btg4Input.setText(txtTmp)
++        }
++        else{
++            btg4Input.setText("BELUM DIATUR")
++        }
++    }
++    fun namaFile(star:String):String{
++        //nama bidang dijadikan array terdiri dari 2, index pertama sebagai ID
++        var arrBidangTmp = getBidangSelected().split(".")
++
++        //format nama file 1A_btg1 (1 mewaliki kode bidang, star 1 mewakili bintang 1
++        var nama=String.format(
++            "%s%s_%s"
++            ,arrBidangTmp.get(0)
++            ,getKelasSelected().uppercase()
++            ,star
++        )
++
++        return nama
++    }
++    fun saveFile(){
++        val outputBtg1 = File(getSaveFolder(),"/"+namaFile("btg1")+".txt")
++        val outputBtg2 = File(getSaveFolder(),"/"+namaFile("btg2")+".txt")
++        val outputBtg3 = File(getSaveFolder(),"/"+namaFile("btg3")+".txt")
++        val outputBtg4 = File(getSaveFolder(),"/"+namaFile("btg4")+".txt")
++
++        if((
++                    btg1Input.getText().toString()!=""
++                    && btg2Input.getText().toString()!=""
++                    && btg3Input.getText().toString()!=""
++                    && btg4Input.getText().toString()!=""
++                    )||(
++                    btg1Input.getText().toString()!="BELUM DIATUR"
++                    && btg1Input.getText().toString()!="BELUM DIATUR"
++                    && btg1Input.getText().toString()!="BELUM DIATUR"
++                    && btg1Input.getText().toString()!="BELUM DIATUR"
++                    )) {
++            outputBtg1.writeText(btg1Input.getText().toString())
++            outputBtg2.writeText(btg2Input.getText().toString())
++            outputBtg3.writeText(btg3Input.getText().toString())
++            outputBtg4.writeText(btg4Input.getText().toString())
++        }
++        else{
++            Toast.makeText(applicationContext, "Masukkan Kalimat Dengan Lengkap",Toast.LENGTH_SHORT).show()
++        }
+     }
+ 
+     //setter
+@@ -158,9 +185,16 @@
+     fun setKelasSelected(kelas:String){
+         kelasSelected=kelas
+     }
+-    fun setIdBidangSelected(bidang:String){
+-        var tmp = bidang.split(".")
+-        idBidangSelected = tmp.get(0)
++    fun setSaveFolder(){
++        val parentFolder = File(Environment.getExternalStorageDirectory(),"Raport")
++        if(!parentFolder.isDirectory){
++            parentFolder.mkdirs()
++        }
++
++        saveFolder = File(parentFolder, "KalimatRaport")
++        if(!saveFolder.isDirectory){
++            saveFolder.mkdirs()
++        }
+     }
+ 
+     //getter
+@@ -170,7 +204,7 @@
+     fun getKelasSelected():String{
+         return kelasSelected
+     }
+-    fun getIdBidangSelected():String{
+-        return idBidangSelected
++    fun getSaveFolder():File{
++        return saveFolder
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/raportibukrevisi/ExportDocument.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/raportibukrevisi/ExportDocument.kt b/app/src/main/java/com/example/raportibukrevisi/ExportDocument.kt
+--- a/app/src/main/java/com/example/raportibukrevisi/ExportDocument.kt	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ b/app/src/main/java/com/example/raportibukrevisi/ExportDocument.kt	(date 1642681180287)
+@@ -17,16 +17,7 @@
+     private lateinit var document:XWPFDocument
+     private lateinit var outputDestination:FileOutputStream
+ 
+-    //kalimat
+-    private var kalimatAgamaMoral="_"
+-    private var kalimatFisikMotorik="_"
+-    private var kalimatKognitif="_"
+-    private var kalimatBahasa="_"
+-    private var kalimatSosialEmosi="_"
+-    private var kalimatSeni="_"
+-    private var kalimatCatatanGuru="_"
+-
+-    fun export(tahun:String,kelas:String,nama:String,nomorinduk:String,tanggal:String,kepsek:String) {
++    fun export(tahun:String,kelas:String,nama:String,nomorinduk:String,tanggal:String,kepsek:String,nilai:ArrayList<String>,semester:String) {
+         val parentfolder = File(Environment.getExternalStorageDirectory(), "Raport")
+         if (!parentfolder.isDirectory) {
+             parentfolder.mkdirs()
+@@ -36,17 +27,6 @@
+             path.mkdirs()
+         }
+ 
+-        //deklarasi item yang dibutuhkan
+-        while(kalimatAgamaMoral=="_"){
+-        setKalimatAgamaMoral(tahun, kelas, nama)
+-        }
+-//        setKalimatFisikMotorik(tahun, kelas, nama)
+-//        setKalimatKognitif(tahun, kelas, nama)
+-//        setKalimatBahasa(tahun, kelas, nama)
+-//        setKalimatSosialEmosi(tahun, kelas, nama)
+-//        setKalimatSeni(tahun, kelas, nama)
+-//        setKalimatCatatanGuru(tahun, kelas, nama)
+-
+         //proses export satu halaman
+         setDocument()
+         setOutputDestination(path, nama, tahun, kelas)
+@@ -55,71 +35,99 @@
+         viewTabel1Identitas(nama, nomorinduk)
+ 
+         addVerticalSpace(3)
+-        viewTabel2Title()
++        viewTabel2Title(semester)
+ 
+         addVerticalSpace(1)
+         viewTabelTitleNilai("(NAM) Nilai Agama dan Moral", "A")
+         addVerticalSpace(1)
+-        viewTabelNilai("(NAM) Nilai Agama dan Moral", getKalimatAgamaMoral())
++        viewTabelNilai("(NAM) Nilai Agama dan Moral", loadKalimat("1",kelas, nilai.get(0)))
++
++        addVerticalSpace(1)
++        viewTabelTitleNilai("(FM) Fisik Motorik", "B")
++        addVerticalSpace(1)
++        viewTabelNilai("(FM) Fisik Motorik", loadKalimat("2",kelas, nilai.get(1)))
++
++        addVerticalSpace(1)
++        viewTabelTitleNilai("(KOG) Kognitif", "C")
++        addVerticalSpace(1)
++        viewTabelNilai("(KOG) Kognitif", loadKalimat("3",kelas, nilai.get(2)))
++
++        addVerticalSpace(1)
++        viewTabelTitleNilai("(Bahasa) BAHASA", "D")
++        addVerticalSpace(1)
++        viewTabelNilai("(Bahasa) BAHASA", loadKalimat("4",kelas, nilai.get(3)))
++
++        addVerticalSpace(1)
++        viewTabelTitleNilai("Sosial Emosional", "E")
++        addVerticalSpace(1)
++        viewTabelNilai("Sosial Emosional", loadKalimat("5",kelas, nilai.get(4)))
+ 
+-//        while(getKalimatFisikMotorik()=="_") {
+-//            addVerticalSpace(1)
+-//            viewTabelTitleNilai("(FM) Fisik Motorik", "B")
+-//            addVerticalSpace(1)
+-//            viewTabelNilai("(FM) Fisik Motorik", getKalimatFisikMotorik())
+-//        }
+-//        while(getKalimatKognitif()=="_") {
+-//            addVerticalSpace(1)
+-//            viewTabelTitleNilai("(KOG) Kognitif", "C")
+-//            addVerticalSpace(1)
+-//            viewTabelNilai("(KOG) Kognitif", getKalimatKognitif())
+-//        }
+-//        while(getKalimatBahasa()=="_") {
+-//            addVerticalSpace(1)
+-//            viewTabelTitleNilai("(Bahasa) BAHASA", "D")
+-//            addVerticalSpace(1)
+-//            viewTabelNilai("(Bahasa) BAHASA", getKalimatBahasa())
+-//        }
+-//        while (getKalimatSosialEmosi()=="_") {
+-//            addVerticalSpace(1)
+-//            viewTabelTitleNilai("Sosial Emosional", "E")
+-//            addVerticalSpace(1)
+-//            viewTabelNilai("Sosial Emosional", getKalimatSosialEmosi())
+-//        }
+-//        while(getKalimatSeni()=="_") {
+-//            addVerticalSpace(1)
+-//            viewTabelTitleNilai("Seni", "F")
+-//            addVerticalSpace(1)
+-//            viewTabelNilai("Seni", getKalimatSeni())
+-//        }
+-//
+-//        //tabel tidak hadir
+-//        addVerticalSpace(1)
+-//        viewTabelTitleNilai("Ketidakhadiran", "G")
+-//        addVerticalSpace(1)
+-//        viewTabelAbsen()
+-//
+-//        while(getKalimatCatatanGuru()=="_") {
+-//            addVerticalSpace(1)
+-//            viewTabelTitleNilai("Catatan Guru Kelas", "H")
+-//            addVerticalSpace(1)
+-//            viewTabelNilai("Catatan Guru Kelas", getKalimatCatatanGuru())
+-//        }
+-//
+-//        //tabel tanggapan ortu
+-//        addVerticalSpace(1)
+-//        viewTabelTitleNilai("Tanggapan Orang Tua", "I")
+-//        addVerticalSpace(1)
+-//        viewTabelNilai("Tanggapan Orang Tua","")
+-//
+-//        //tabel ttd
+-//        addVerticalSpace(3)
+-//        viewTabelTTDGuruDanOrtu(tanggal)
+-//        addVerticalSpace(1)
+-//        viewTabelTTDKepsek(kepsek)
++        addVerticalSpace(1)
++        viewTabelTitleNilai("Seni", "F")
++        addVerticalSpace(1)
++        viewTabelNilai("Seni", loadKalimat("6",kelas, nilai.get(5)))
++
++        //tabel tidak hadir
++        addVerticalSpace(1)
++        viewTabelTitleNilai("Ketidakhadiran", "G")
++        addVerticalSpace(1)
++        viewTabelAbsen()
++
++        addVerticalSpace(1)
++        viewTabelTitleNilai("Catatan Guru Kelas", "H")
++        addVerticalSpace(1)
++        viewTabelNilai("Catatan Guru Kelas", loadKalimat("7",kelas, nilai.get(6)))
++
++        //tabel tanggapan ortu
++        addVerticalSpace(1)
++        viewTabelTitleNilai("Tanggapan Orang Tua", "I")
++        addVerticalSpace(1)
++        viewTabelNilai("Tanggapan Orang Tua","")
++
++        //tabel ttd
++        addVerticalSpace(3)
++        viewTabelTTDGuruDanOrtu(tanggal)
++        addVerticalSpace(1)
++        viewTabelTTDKepsek(kepsek)
+ 
+-            getDocument().write(getOutputDestination())
++        getDocument().write(getOutputDestination())
+     }
++    //fungsi spesial
++    fun loadKalimat(id:String,kelas:String,nilai:String):String{
++        val namaFile = String.format(
++            "%s%s_btg%s",id,kelas.uppercase(),nilai)
++
++        val parentFolder = File(Environment.getExternalStorageDirectory(),"Raport")
++        val kalimatFolder = File(parentFolder,"KalimatRaport")
++
++        val file = File(kalimatFolder,"/"+ namaFile +".txt")
++
++        if(file.exists()){
++            val br = file.bufferedReader()
++            val txtTmp = br.use { it.readText() }
++            return txtTmp
++        }
++        else{
++            return "BELUM DIATUR"
++        }
++    }
++
++    //setter
++    fun setOutputDestination(path:File,namaFile:String,tahun:String,kelas:String){
++        outputDestination= FileOutputStream(File(path,"/"+namaFile+".docx"))
++    }
++    fun setDocument(){
++        document = XWPFDocument()
++    }
++
++    //getter
++    fun getOutputDestination():FileOutputStream{
++        return outputDestination
++    }
++    fun getDocument():XWPFDocument{
++        return document
++    }
++
+ 
+     //fungsi pembuatan tabel
+     fun viewTabel1Identitas(nama:String,nomorinduk:String){
+@@ -169,7 +177,7 @@
+         hideAllBorder(cellNis)
+         addBottomBorder(cellNis)
+     }
+-    fun viewTabel2Title(){
++    fun viewTabel2Title(semester:String){
+         val tabel = getDocument().createTable(3,1)
+         setColumnWidth(tabel,0,8190)
+         setFixedTableLayout(tabel)
+@@ -184,7 +192,7 @@
+ 
+         val cellTxtSem1 = tabel.getRow(2).getCell(0)
+         hideAllBorder(cellTxtSem1)
+-        setCellStyle(cellTxtSem1,"Times New Roman", 18, "000000", true, "SEMESTER",ParagraphAlignment.CENTER)
++        setCellStyle(cellTxtSem1,"Times New Roman", 18, "000000", true, "SEMESTER "+semester,ParagraphAlignment.CENTER)
+     }
+     fun viewTabelTitleNilai(bidang:String,huruf:String){
+         val title = getDocument().createTable(1,1)
+@@ -315,9 +323,6 @@
+     }
+ 
+     //fungsi khusus
+-    fun permission():Array<String>{
+-        return arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+-    }
+     fun setTableAlign(table:XWPFTable,align:ParagraphAlignment){
+         val tblPr = table.ctTbl.tblPr
+         var jc = tblPr.getJc()
+@@ -351,7 +356,7 @@
+             index+=1
+         }
+     }
+-    fun setIndividuWidth(cell:XWPFTableCell){
++    fun setOneCellWidth(cell:XWPFTableCell){
+         val cellwidth = cell.ctTc.addNewTcPr().addNewTcW()
+ 
+         val pr = cell.ctTc.addNewTcPr()
+@@ -518,352 +523,4 @@
+ 
+         tcBorder.addNewBottom().setVal(STBorder.THICK)
+     }
+-
+-    //fungsi setter nilai dan kalimat
+-    fun setKalimatAgamaMoral(tahun:String,kelas:String,nama:String){
+-        var nilai = ""
+-        //ambil nilai dulu dari db
+-        val refKelas = FirebaseDatabase.getInstance()
+-            .getReference("DB")
+-            .child(tahun)
+-            .child(kelas).child(nama)
+-            .child("tugas")
+-            .child("1_Agama dan Moral")
+-
+-        refKelas.addValueEventListener(object:ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                nilai = snapshot.child("nilai").getValue().toString()
+-                refKelas.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
+-        val refKalimat = FirebaseDatabase.getInstance()
+-            .getReference("KalimatNilaiRaport")
+-            .child(kelas)
+-            .child("1")
+-        refKalimat.addValueEventListener(object :ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                if(nilai=="0"){
+-                    kalimatAgamaMoral="Belum Dinilai"
+-                }else if(nilai=="1"){
+-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
+-                }else if(nilai=="2"){
+-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
+-                }else if(nilai=="3"){
+-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
+-                }else if(nilai=="4"){
+-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
+-                }
+-                refKalimat.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-    }
+-    fun setKalimatFisikMotorik(tahun:String,kelas:String,nama:String){
+-        var nilai = ""
+-        //ambil nilai dulu dari db
+-        val refKelas = FirebaseDatabase.getInstance()
+-            .getReference("DB")
+-            .child(tahun)
+-            .child(kelas).child(nama)
+-            .child("tugas")
+-            .child("2_Fisik Motorik")
+-
+-        refKelas.addValueEventListener(object:ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                nilai = snapshot.child("nilai").getValue().toString()
+-                refKelas.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
+-        val refKalimat = FirebaseDatabase.getInstance()
+-            .getReference("KalimatNilaiRaport")
+-            .child(kelas)
+-            .child("2")
+-        refKalimat.addValueEventListener(object :ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                if(nilai=="0"){
+-                    kalimatAgamaMoral="Belum Dinilai"
+-                }else if(nilai=="1"){
+-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
+-                }else if(nilai=="2"){
+-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
+-                }else if(nilai=="3"){
+-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
+-                }else if(nilai=="4"){
+-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
+-                }
+-                refKalimat.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-    }
+-    fun setKalimatKognitif(tahun:String,kelas:String,nama:String){
+-        var nilai = ""
+-        //ambil nilai dulu dari db
+-        val refKelas = FirebaseDatabase.getInstance()
+-            .getReference("DB")
+-            .child(tahun)
+-            .child(kelas).child(nama)
+-            .child("tugas")
+-            .child("3_Kognitif")
+-
+-        refKelas.addValueEventListener(object:ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                nilai = snapshot.child("nilai").getValue().toString()
+-                refKelas.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
+-        val refKalimat = FirebaseDatabase.getInstance()
+-            .getReference("KalimatNilaiRaport")
+-            .child(kelas)
+-            .child("3")
+-        refKalimat.addValueEventListener(object :ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                if(nilai=="0"){
+-                    kalimatAgamaMoral="Belum Dinilai"
+-                }else if(nilai=="1"){
+-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
+-                }else if(nilai=="2"){
+-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
+-                }else if(nilai=="3"){
+-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
+-                }else if(nilai=="4"){
+-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
+-                }
+-                refKalimat.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-    }
+-    fun setKalimatBahasa(tahun:String,kelas:String,nama:String){
+-        var nilai = ""
+-        //ambil nilai dulu dari db
+-        val refKelas = FirebaseDatabase.getInstance()
+-            .getReference("DB")
+-            .child(tahun)
+-            .child(kelas).child(nama)
+-            .child("tugas")
+-            .child("4_Bahasa")
+-
+-        refKelas.addValueEventListener(object:ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                nilai = snapshot.child("nilai").getValue().toString()
+-                refKelas.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
+-        val refKalimat = FirebaseDatabase.getInstance()
+-            .getReference("KalimatNilaiRaport")
+-            .child(kelas)
+-            .child("1")
+-        refKalimat.addValueEventListener(object :ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                if(nilai=="0"){
+-                    kalimatAgamaMoral="Belum Dinilai"
+-                }else if(nilai=="1"){
+-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
+-                }else if(nilai=="2"){
+-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
+-                }else if(nilai=="3"){
+-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
+-                }else if(nilai=="4"){
+-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
+-                }
+-                refKalimat.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-    }
+-    fun setKalimatSosialEmosi(tahun:String,kelas:String,nama:String){
+-        var nilai = ""
+-        //ambil nilai dulu dari db
+-        val refKelas = FirebaseDatabase.getInstance()
+-            .getReference("DB")
+-            .child(tahun)
+-            .child(kelas).child(nama)
+-            .child("tugas")
+-            .child("5_Sosial Emosional")
+-
+-        refKelas.addValueEventListener(object:ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                nilai = snapshot.child("nilai").getValue().toString()
+-                refKelas.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
+-        val refKalimat = FirebaseDatabase.getInstance()
+-            .getReference("KalimatNilaiRaport")
+-            .child(kelas)
+-            .child("5")
+-        refKalimat.addValueEventListener(object :ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                if(nilai=="0"){
+-                    kalimatAgamaMoral="Belum Dinilai"
+-                }else if(nilai=="1"){
+-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
+-                }else if(nilai=="2"){
+-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
+-                }else if(nilai=="3"){
+-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
+-                }else if(nilai=="4"){
+-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
+-                }
+-                refKalimat.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-    }
+-    fun setKalimatSeni(tahun:String,kelas:String,nama:String){
+-        var nilai = ""
+-        //ambil nilai dulu dari db
+-        val refKelas = FirebaseDatabase.getInstance()
+-            .getReference("DB")
+-            .child(tahun)
+-            .child(kelas).child(nama)
+-            .child("tugas")
+-            .child("6_Seni")
+-
+-        refKelas.addValueEventListener(object:ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                nilai = snapshot.child("nilai").getValue().toString()
+-                refKelas.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
+-        val refKalimat = FirebaseDatabase.getInstance()
+-            .getReference("KalimatNilaiRaport")
+-            .child(kelas)
+-            .child("6")
+-        refKalimat.addValueEventListener(object :ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                if(nilai=="0"){
+-                    kalimatAgamaMoral="Belum Dinilai"
+-                }else if(nilai=="1"){
+-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
+-                }else if(nilai=="2"){
+-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
+-                }else if(nilai=="3"){
+-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
+-                }else if(nilai=="4"){
+-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
+-                }
+-                refKalimat.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-    }
+-    fun setKalimatCatatanGuru(tahun:String,kelas:String,nama:String){
+-        var nilai = 0
+-        var nilaiList=ArrayList<Int>()
+-
+-        //ambil nilai dulu dari db
+-        val refKelas = FirebaseDatabase.getInstance()
+-            .getReference("DB")
+-            .child(tahun)
+-            .child(kelas).child(nama)
+-            .child("tugas")
+-
+-        refKelas.addValueEventListener(object:ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                for(item:DataSnapshot in snapshot.getChildren()){
+-                    nilai += (item.child("nilai").getValue().toString()).toInt()
+-                }
+-                refKelas.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        val tmp = nilai.toDouble()/6
+-        nilai = Math.floor(tmp).toInt()
+-
+-        //sesuaikan nilai dengan kalimat, dimasukkan dalam variabel class
+-        val refKalimat = FirebaseDatabase.getInstance()
+-            .getReference("KalimatNilaiRaport")
+-            .child(kelas)
+-            .child("7")
+-        refKalimat.addValueEventListener(object :ValueEventListener{
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                if(nilai==0){
+-                    kalimatAgamaMoral="Belum Dinilai"
+-                }else if(nilai==1){
+-                    kalimatAgamaMoral=snapshot.child("btg1").getValue().toString()
+-                }else if(nilai==2){
+-                    kalimatAgamaMoral=snapshot.child("btg2").getValue().toString()
+-                }else if(nilai==3){
+-                    kalimatAgamaMoral=snapshot.child("btg3").getValue().toString()
+-                }else if(nilai==4){
+-                    kalimatAgamaMoral=snapshot.child("btg4").getValue().toString()
+-                }
+-                refKalimat.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-    }
+-
+-    //fungsi getter nilai dan kalimat
+-    fun getKalimatAgamaMoral():String{return kalimatAgamaMoral}
+-    fun getKalimatFisikMotorik():String{return kalimatFisikMotorik}
+-    fun getKalimatKognitif():String{return kalimatKognitif}
+-    fun getKalimatBahasa():String{return kalimatBahasa}
+-    fun getKalimatSosialEmosi():String{return kalimatSosialEmosi}
+-    fun getKalimatSeni():String{return kalimatSeni}
+-    fun getKalimatCatatanGuru():String{return kalimatCatatanGuru}
+-
+-    //setter
+-    fun setOutputDestination(path:File,namaFile:String,tahun:String,kelas:String){
+-        outputDestination= FileOutputStream(File(path,"/"+namaFile+".docx"))
+-    }
+-    fun setDocument(){
+-        document = XWPFDocument()
+-    }
+-
+-    //getter
+-    fun getOutputDestination():FileOutputStream{
+-        return outputDestination
+-    }
+-    fun getDocument():XWPFDocument{
+-        return document
+-    }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/raportibukrevisi/HapusMurid.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/raportibukrevisi/HapusMurid.kt b/app/src/main/java/com/example/raportibukrevisi/HapusMurid.kt
+--- a/app/src/main/java/com/example/raportibukrevisi/HapusMurid.kt	(revision f9e08b61828bc0f49434a3b7c846dc5a20498b66)
++++ b/app/src/main/java/com/example/raportibukrevisi/HapusMurid.kt	(date 1642684313309)
+@@ -13,34 +13,26 @@
+     private lateinit var tahun_hapusmurid_dropdown: AutoCompleteTextView
+     private lateinit var kelas_hapusmurid_dropdown: AutoCompleteTextView
+     private lateinit var nama_hapusmurid_dropdown: AutoCompleteTextView
+-    private lateinit var hapus_hapusmurid_btn: Button
++    private lateinit var hapus_hapusmurid_btn:Button
+ 
+-    //list dan adapter
+-    private lateinit var tahunList:ArrayList<String>
+-    private lateinit var tahunAdapter: ArrayAdapter<String>
+-    private lateinit var kelasList:ArrayList<String>
+-    private lateinit var kelasAdapter: ArrayAdapter<String>
+-    private lateinit var namaList:ArrayList<String>
+-    private lateinit var namaAdapter: ArrayAdapter<String>
++    private var listReq = ListRequired()
++    private var removeData = RemoveData()
++
++    private lateinit var tahunAdapter:ArrayAdapter<String>
++    private lateinit var kelasAdapter:ArrayAdapter<String>
++    private lateinit var namaAdapter:ArrayAdapter<String>
+ 
+-    //dbref
+-    private lateinit var dbRefMain: DatabaseReference
+-
+-    //tahun & kelas selected
+     private var tahunSelected="_"
+     private var kelasSelected="_"
+     private var namaSelected="_"
+ 
+-    //connection state
+-    private var isConnected=false
+-
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.hapusmurid_activity)
+ 
+         callDeklarasi()
+-        callUpdateTahunDropdown(dbRefMain)
+-        callListenerConnectionState()
++        refreshTahunDropdown()
++        refreshKelasDropdown()
+ 
+         //dropdown item selected
+         tahun_hapusmurid_dropdown.setOnItemClickListener(object : AdapterView.OnItemClickListener{
+@@ -50,16 +42,9 @@
+                 position: Int,
+                 id: Long
+             ) {
+-                //set tahunselected
+-                setTahunSelected(parent?.getItemAtPosition(position).toString())
+-
+-                //update kelas
+-                callUpdateKelasDropdown(dbRefMain.child(getTahunSelected()))
+-
+-                //update nama
+-                if(getKelasSelected()!="_"){
+-                    callUpdateNamaDropdown(dbRefMain.child(getTahunSelected()).child(getKelasSelected()))
+-                }
++                setTahunSelected(parent?.getItemAtPosition(position).toString().replace("-","_"))
++                refreshKelasDropdown()
++                refreshnamaDropdown()
+             }
+ 
+         })
+@@ -70,13 +55,8 @@
+                 position: Int,
+                 id: Long
+             ) {
+-                //set kelasselected
+-                setKelasSelected(parent?.getItemAtPosition(position).toString())
+-
+-                //update nama
+-                if(tahunSelected!="_"){
+-                    callUpdateNamaDropdown(dbRefMain.child(getTahunSelected()).child(getKelasSelected()))
+-                }
++                setKelasSelected(parent?.getItemAtPosition(position).toString().lowercase())
++                refreshnamaDropdown()
+             }
+ 
+         })
+@@ -92,174 +72,52 @@
+ 
+         })
+ 
+-        //hapus murid
++        //hapus item
+         hapus_hapusmurid_btn.setOnClickListener {
+-            if(isConnected){
+-                if(getTahunSelected()!="_" && getKelasSelected()!="_" && getNamaSelected()!="_"){
+-                    removeData(dbRefMain
+-                        .child(getTahunSelected())
+-                        .child(getKelasSelected()))
+-                    refreshNamaDropdown()
+-                    Toast.makeText(applicationContext,"Data Murid Berhasil Dihapus", Toast.LENGTH_SHORT).show()
+-                }else{
+-                    Toast.makeText(applicationContext,"Harap Masukkan Data Dengan lengkap", Toast.LENGTH_SHORT).show()
+-                }
++            if(getTahunSelected()!="_" && getKelasSelected()!="_" && getNamaSelected()!="_"){
++                removeMurid()
+             }
+             else{
+-                Toast.makeText(applicationContext,"GAGAL, Pastikan Koneksi Anda Baik", Toast.LENGTH_SHORT).show()
++                Toast.makeText(applicationContext,"Harap Masukkan Data Dengan Lengkap",Toast.LENGTH_SHORT).show()
+             }
+         }
+     }
+ 
+-    //fungsi penting
+     fun callDeklarasi(){
+-        tahun_hapusmurid_dropdown = findViewById(R.id.tahun_hapusmurid_dropdown)
+-        kelas_hapusmurid_dropdown = findViewById(R.id.kelas_hapusmurid_dropdown)
+-        nama_hapusmurid_dropdown = findViewById(R.id.nama_hapusmurid_dropdown)
+-        hapus_hapusmurid_btn = findViewById(R.id.hapus_hapusmurid_btn)
+-
+-        //list
+-        tahunList = ArrayList()
+-        kelasList = ArrayList()
+-        namaList = ArrayList()
+-        dbRefMain = FirebaseDatabase.getInstance().getReference("DB")
++        tahun_hapusmurid_dropdown=findViewById(R.id.tahun_hapusmurid_dropdown)
++        kelas_hapusmurid_dropdown=findViewById(R.id.kelas_hapusmurid_dropdown)
++        nama_hapusmurid_dropdown=findViewById(R.id.nama_hapusmurid_dropdown)
++        hapus_hapusmurid_btn=findViewById(R.id.hapus_hapusmurid_btn)
+     }
+-    fun callUpdateTahunDropdown(ref:DatabaseReference){
++
++    fun refreshTahunDropdown(){
+         tahun_hapusmurid_dropdown.setText("pilih tahun")
+-        resetTahunSelected()
+-        resetKelasSelected()
+-        resetNamaSelected()
+-        ref.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                tahunList.clear()
+-                for(item: DataSnapshot in snapshot.getChildren()){
+-                    tahunList.add(item.child("tahun").getValue().toString().replace("_","-"))
+-                }
+-                ref.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        tahunAdapter = ArrayAdapter(this,
+-            R.layout.support_simple_spinner_dropdown_item,tahunList)
++        setTahunSelected("_")
++        tahunAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listTahun())
+         tahun_hapusmurid_dropdown.setAdapter(tahunAdapter)
+     }
+-    fun callUpdateKelasDropdown(ref:DatabaseReference){
++    fun refreshKelasDropdown(){
+         kelas_hapusmurid_dropdown.setText("pilih kelas")
+-        resetKelasSelected()
+-        resetNamaSelected()
+-        ref.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                kelasList.clear()
+-                for(item: DataSnapshot in snapshot.getChildren()){
+-                    if(item.child("kelas").getValue().toString()!="null") {
+-                        kelasList.add(item.child("kelas").getValue().toString().uppercase())
+-                    }
+-                }
+-                ref.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-        kelasAdapter = ArrayAdapter(this,
+-            R.layout.support_simple_spinner_dropdown_item,kelasList)
++        setKelasSelected("_")
++        kelasAdapter= ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listKelas())
+         kelas_hapusmurid_dropdown.setAdapter(kelasAdapter)
+     }
+-    fun callUpdateNamaDropdown(ref:DatabaseReference){
+-        resetNamaSelected()
++    fun refreshnamaDropdown(){
+         nama_hapusmurid_dropdown.setText("pilih nama")
+-        ref.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                namaList.clear()
+-                for(item: DataSnapshot in snapshot.getChildren()){
+-                    if(item.child("nama").getValue().toString()!="null"){
+-                        namaList.add(item.child("nama").getValue().toString())
+-                    }
+-                }
+-                ref.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-
+-        namaAdapter = ArrayAdapter(this,
+-            R.layout.support_simple_spinner_dropdown_item,namaList)
++        setNamaSelected("_")
++        namaAdapter= ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listNama(getTahunSelected(),getKelasSelected()))
+         nama_hapusmurid_dropdown.setAdapter(namaAdapter)
+-        namaList.clear()
+-    }
+-    fun callListenerConnectionState(){
+-        val connectedRef = Firebase.database.getReference(".info/connected")
+-        connectedRef.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                val connected = snapshot.getValue(Boolean::class.java) ?: false
+-                if (connected) {
+-                    isConnected=true
+-                } else {
+-                    isConnected=false
+-                }
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-
+-            }
+-        })
+-    }
+-    fun removeData(ref:DatabaseReference){
+-        ref.addValueEventListener(object : ValueEventListener {
+-            override fun onDataChange(snapshot: DataSnapshot) {
+-                //remove data
+-                ref.child(getNamaSelected()).removeValue()
+-
+-                ref.removeEventListener(this)
+-            }
+-            override fun onCancelled(error: DatabaseError) {
+-                TODO("Not yet implemented")
+-            }
+-        })
+-    }
+-
+-    //setter
+-    fun setTahunSelected(tahun:String){
+-        tahunSelected=tahun.replace("-","_")
+-    }
+-    fun setKelasSelected(kelas:String){
+-        kelasSelected=kelas.lowercase()
+-    }
+-    fun setNamaSelected(nama:String){
+-        namaSelected=nama
+     }
+ 
+-    //getter
+-    fun getTahunSelected():String{
+-        return tahunSelected
+-    }
+-    fun getKelasSelected():String{
+-        return kelasSelected
+-    }
+-    fun getNamaSelected():String{
+-        return namaSelected
+-    }
++    fun setTahunSelected(tahun:String){tahunSelected=tahun}
++    fun setKelasSelected(kelas:String){kelasSelected=kelas}
++    fun setNamaSelected(nama:String){namaSelected=nama}
+ 
+-    //resetter
+-    fun resetTahunSelected(){
+-        tahunSelected="_"
+-    }
+-    fun resetKelasSelected(){
+-        kelasSelected="_"
+-    }
+-    fun resetNamaSelected(){
+-        namaSelected="_"
+-    }
++    fun getTahunSelected():String{return tahunSelected}
++    fun getKelasSelected():String{return kelasSelected}
++    fun getNamaSelected():String{return namaSelected}
+ 
+-    //refresher
+-    fun refreshNamaDropdown(){
+-        val handler= Handler()
+-        val runnable = Runnable {
+-            callUpdateNamaDropdown(dbRefMain.child(getTahunSelected()).child(getKelasSelected()))
+-        }
+-        handler.postDelayed(runnable,500)
++    fun removeMurid(){
++        removeData.removeMurid(getTahunSelected(),getKelasSelected(),getNamaSelected())
+     }
+ }
+\ No newline at end of file

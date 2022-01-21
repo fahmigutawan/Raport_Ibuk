@@ -142,7 +142,7 @@ class LihatData:AppCompatActivity() {
     //setter
     fun setTahunPreview(){
         tahunAdapter = ArrayAdapter(this,
-            R.layout.support_simple_spinner_dropdown_item, listRequired.listTahun())
+            R.layout.support_simple_spinner_dropdown_item, listRequired.listTahun(this))
         tahun_lihatdata_dropdown.setAdapter(tahunAdapter)
     }
     fun setKelasPreview(){
@@ -152,7 +152,7 @@ class LihatData:AppCompatActivity() {
     }
     fun setNamaDropdown(){
             namaAdapter = ArrayAdapter(this,
-                R.layout.support_simple_spinner_dropdown_item,listRequired.listNama(getTahunSelected(),getKelasSelected()))
+                R.layout.support_simple_spinner_dropdown_item,listRequired.listNama(getTahunSelected(),getKelasSelected(),this))
             nama_lihatdata_dropdown.setAdapter(namaAdapter)
         }
 

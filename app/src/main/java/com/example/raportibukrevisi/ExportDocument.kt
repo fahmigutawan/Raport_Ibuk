@@ -17,7 +17,7 @@ class ExportDocument {
     private lateinit var document:XWPFDocument
     private lateinit var outputDestination:FileOutputStream
 
-    fun export(tahun:String,kelas:String,nama:String,nomorinduk:String,tanggal:String,kepsek:String,nilai:ArrayList<String>,semester:String) {
+    fun export(tahun:String,kelas:String,nama:String,nomorinduk:String,tanggal:String,kepsek:String,nilai:ArrayList<String>,semester:String,nipKepsek:String) {
         val parentfolder = File(Environment.getExternalStorageDirectory(), "Raport")
         if (!parentfolder.isDirectory) {
             parentfolder.mkdirs()
@@ -87,8 +87,9 @@ class ExportDocument {
         //tabel ttd
         addVerticalSpace(3)
         viewTabelTTDGuruDanOrtu(tanggal)
+
         addVerticalSpace(1)
-        viewTabelTTDKepsek(kepsek)
+        viewTabelTTDKepsek(kepsek,nipKepsek)
 
         getDocument().write(getOutputDestination())
     }
@@ -281,8 +282,8 @@ class ExportDocument {
         hideAllBorder(cellNipGuru)
 
     }
-    fun viewTabelTTDKepsek(kepsek:String){
-        val tabel = getDocument().createTable(4,1)
+    fun viewTabelTTDKepsek(kepsek:String,nipKepsek: String){
+        val tabel = getDocument().createTable(5,1)
         setFixedTableLayout(tabel)
         setColumnWidth(tabel,0,8190)
 
@@ -320,6 +321,16 @@ class ExportDocument {
             ,ParagraphAlignment.CENTER)
         hideAllBorder(tabel.getRow(2).getCell(0))
         hideAllBorder(tabel.getRow(3).getCell(0))
+
+        setCellStyle(
+            tabel.getRow(4).getCell(0)
+            ,"Times New Roman"
+            ,12
+            ,"000000"
+            ,false
+            ,nipKepsek
+            ,ParagraphAlignment.CENTER)
+        hideAllBorder(tabel.getRow(4).getCell(0))
     }
 
     //fungsi khusus

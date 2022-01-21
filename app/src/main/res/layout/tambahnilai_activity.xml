@@ -320,5 +320,4 @@
             android:text="SUBMIT" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

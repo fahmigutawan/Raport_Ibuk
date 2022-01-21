@@ -93,7 +93,7 @@ class HapusMurid:AppCompatActivity() {
     fun refreshTahunDropdown(){
         tahun_hapusmurid_dropdown.setText("pilih tahun")
         setTahunSelected("_")
-        tahunAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listTahun())
+        tahunAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listTahun(this))
         tahun_hapusmurid_dropdown.setAdapter(tahunAdapter)
     }
     fun refreshKelasDropdown(){
@@ -105,7 +105,7 @@ class HapusMurid:AppCompatActivity() {
     fun refreshnamaDropdown(){
         nama_hapusmurid_dropdown.setText("pilih nama")
         setNamaSelected("_")
-        namaAdapter= ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listNama(getTahunSelected(),getKelasSelected()))
+        namaAdapter= ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,listReq.listNama(getTahunSelected(),getKelasSelected(),this))
         nama_hapusmurid_dropdown.setAdapter(namaAdapter)
     }
 
